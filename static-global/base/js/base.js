@@ -47,5 +47,3 @@ const api_post_req = ({ api_type, post_req, accept }) => {
     body: post_req,
   });
 };
-
-export { urls, api, api_get_req, api_post_req };
