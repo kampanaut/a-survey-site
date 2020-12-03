@@ -1,5 +1,5 @@
 database.cnf
-the_survey/settings.py
+# the_survey/settings.py
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
