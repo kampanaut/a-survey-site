@@ -1,0 +1,17 @@
+<form id="user-form">
+    <fieldset>
+        <div class="first-name input_container">
+            <label for="id_first_name">First Name</label>
+            {{form.first_name}}
+        </div>
+        <div class="last-name input_container">
+            <label for="id_last_name">Last Name</label>
+            {{form.last_name}}
+        </div>
+        <div class="birth-date input_container">
+            <label for="id_birtday">Birthday</label>
+            <input type="date" name="birthday" id="id_birthday">
+        </div>
+    </fieldset>
+    {% csrf_token %}
+</form>
