@@ -4,7 +4,7 @@ const load_polls = async () => {
     accept: api.accept.json,
   });
   data = await response.json();
-  window.initiate_survey(data.questions);
+  initiate_survey(data.questions);
 };
 $(document).ready(() => {
   load_polls();
