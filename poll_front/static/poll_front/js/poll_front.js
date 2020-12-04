@@ -11,6 +11,8 @@ const load_polls = async () => {
 $(document).ready(() => {
   console.log(urls.static, " second print of urls.static");
   const promise = new Promise((resolve, reject) => {
+    console.log(urls.static, " third print of urls.static");
+    console.log(`${urls.static}/poll_front/js/polls-feed.js`);
     $.getScript(
       `${urls.static}/poll_front/js/polls-feed.js`,
       function (script) {
