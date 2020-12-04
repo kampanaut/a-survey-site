@@ -88,13 +88,13 @@ main.poll-container_main {
 
 @media only screen and (min-width: 930px) {
     main.poll-container_main {
-        width: 784px;
+        min-width: 784px;
         margin: 0;
     }
 }
 
 @media only screen and (min-width: 1021px) {
     main.poll-container_base {
-        width: 920px;
+        min-width: 920px;
     }
 }
