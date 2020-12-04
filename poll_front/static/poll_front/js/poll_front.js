@@ -1,4 +1,4 @@
-console.log(urls.static);
+console.log(urls.static, " first print of urls.static");
 
 const load_polls = async () => {
   response = await api_get_req({
@@ -9,5 +9,17 @@ const load_polls = async () => {
   initiate_survey(data.questions);
 };
 $(document).ready(() => {
-  load_polls();
+  console.log(urls.static, " second print of urls.static");
+  const promise = new Promise((resolve, reject) => {
+    $.getScript(
+      `${urls.static}/poll_front/js/polls-feed.js`,
+      function (script) {
+        initiate_poll_feed();
+        resolve(200);
+      }
+    );
+  });
+  promise.then((response) => {
+    load_polls();
+  });
 });
