@@ -113,12 +113,12 @@ div.question-item-info.total {
     justify-self: end;
 }
 
-form#five-point-scale {
+form#qualit-answer {
     grid-area: likert;
     padding: 0rem 0.4rem 1rem;
 }
 
-form#five-point-scale>fieldset {
+form#qualit-answer>fieldset {
     display: flex;
     flex-direction: row;
     align-items: flex-start;
@@ -132,11 +132,11 @@ form#five-point-scale>fieldset {
 }
 
 @media only screen and (min-width: 775px) {
-    section.likert-choice_container {
+    /* section.likert-choice_container {
         width: 635px;
         margin-left: auto;
         margin-right: auto;
-    }
+    } */
 
     div.question-item-info.sort {
         padding-left: 1rem;
@@ -146,7 +146,7 @@ form#five-point-scale>fieldset {
         padding-right: 1rem;
     }
 
-    form#five-point-scale>fieldset {
+    form#qualit-answer>fieldset {
         width: 610px;
         margin: 0rem auto;
     }

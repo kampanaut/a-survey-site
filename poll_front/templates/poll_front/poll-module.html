@@ -11,8 +11,14 @@
     <div class="question-item-info total">
         <span></span>
     </div>
-    <form id="five-point-scale">
+    <form id="qualit-answer">
         <fieldset>
+            <textarea name="answer" id="id_answer" cols="30" rows="10" placeholder="Enter your response">
+            </textarea>
+        </fieldset>
+        <input type="submit" value="proceed">
+    </form>
+        {% comment %} <fieldset>
             <div class="scale-items_container">
                 <input type="radio" name="likert-scale" id="highly_disagree" value="1">
                 <input type="button" value="Highly Disagree" id="highly_disagree_btn">
@@ -33,6 +39,5 @@
                 <input type="radio" name="likert-scale" id="highly_agree" value="5">
                 <input type="button" value="Highly Agree" id="highly_agree_btn">
             </div>
-        </fieldset>
-    </form>
+        </fieldset> {% endcomment %}
 </section>
