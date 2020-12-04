@@ -7,7 +7,6 @@ const load_polls = async () => {
   initiate_survey(data.questions);
 };
 $(document).ready(() => {
-<<<<<<< HEAD
   const promise = new Promise((resolve, reject) => {
     $.getScript(
       `${urls.static}/poll_front/js/polls-feed.js`,
@@ -20,7 +19,4 @@ $(document).ready(() => {
   promise.then((response) => {
     load_polls();
   });
-=======
-  load_polls();
->>>>>>> 1fe7c1ce85ab8b4aad5a2cf010ea3d0b4b6f81d2
 });
