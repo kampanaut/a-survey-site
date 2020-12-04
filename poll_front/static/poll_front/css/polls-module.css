@@ -1,0 +1,356 @@
+@import "components.css/misc-question.css";
+@import "components.css/user-form.css";
+
+/*==============
+HIDE ALL TEXT AFTER LAST QUESTION SURVEY SUBMISSION
+==============*/
+
+main.poll-container_main.is-user-form>section.question-text_container,
+main.poll-container_main.is-user-form>section.likert-choice_container,
+main.poll-container_main.is-user-form>hr.break-line,
+main.poll-container_main.is-question-form>section.question-text_container,
+main.poll-container_main.is-question-form>section.likert-choice_container,
+main.poll-container_main.is-question-form>hr.break-line {
+    display: none;
+}
+
+
+/*==============
+QUESTION TEXT
+==============*/
+
+main.poll-container_main>section.question-text_container {
+    padding: 0.5rem;
+    min-height: 8rem;
+    width: 100%;
+}
+
+section.question-text_container>div {
+    font-family: Prompt;
+    font-size: 1.2rem;
+    color: var(--color-one);
+    text-align: center;
+    min-height: 7rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 97%;
+    margin: auto;
+}
+
+div#question_text>span {
+    padding: 0.1rem 0.5rem;
+    border-radius: 0.2rem;
+    transition: 100ms ease-out;
+    transition-property: transform, background-color, color;
+}
+
+div#question_text:hover>span {
+    background-color: var(--color-one);
+    color: var(--color-two);
+    transform: scale(1.05);
+    cursor: default;
+}
+
+/*==============
+BREAK LINE
+==============*/
+
+hr.break-line {
+    width: 95%;
+    border: 0.1rem solid var(--primary-color);
+    height: 0.2rem;
+    background-color: var(--primary-color);
+    margin: auto;
+    border-radius: 0.3rem;
+}
+
+
+
+
+/*==============
+LIKERT SCALE
+==============*/
+
+/* section.likert-choice_container
+{
+    min-height: 5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+} */
+
+section.likert-choice_container {
+    display: grid;
+    min-height: 6.7rem;
+    grid-template-areas:
+        "q-curr q-total"
+        "likert likert";
+    align-items: center;
+    margin-top: 0.3rem;
+}
+
+div.question-item-info>span {
+    font-size: 0.8rem;
+    color: var(--primary-color);
+}
+
+div.question-item-info>span>span {
+    color: #fdc254;
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+div.question-item-info.sort {
+    grid-area: q-curr;
+    padding-left: 1.9rem;
+    justify-self: start;
+}
+
+div.question-item-info.total {
+    grid-area: q-total;
+    padding-right: 1.9rem;
+    justify-self: end;
+}
+
+form#five-point-scale {
+    grid-area: likert;
+    padding: 0rem 0.4rem 1rem;
+}
+
+form#five-point-scale>fieldset {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+    border: none;
+    flex-wrap: wrap;
+    background-color: var(--primary-color);
+    margin: 0rem 1.3rem 0;
+    padding: 0.4rem 1.2rem;
+    border-radius: 0.2rem;
+}
+
+@media only screen and (min-width: 775px) {
+    section.likert-choice_container {
+        width: 635px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    div.question-item-info.sort {
+        padding-left: 1rem;
+    }
+
+    div.question-item-info.total {
+        padding-right: 1rem;
+    }
+
+    form#five-point-scale>fieldset {
+        width: 610px;
+        margin: 0rem auto;
+    }
+
+    hr.break-line {
+        width: 98%;
+    }
+}
+
+@media only screen and (min-width: 930px) {
+    hr.break-line {
+        width: 85%;
+    }
+}
+
+@media only screen and (max-width: 590px) and (min-width: 474px) {
+    hr.break-line {
+        width: 93%;
+    }
+}
+
+@media only screen and (max-width: 474px) {
+    hr.break-line {
+        width: 91%;
+    }
+}
+
+
+fieldset>div.scale-items_container {
+    display: flex;
+    align-items: center;
+    padding: 0.2rem 0.2rem 0;
+    margin: 0.5rem 0;
+    height: 2rem;
+    flex-grow: 1;
+}
+
+div.scale-items_container>input[type="radio"] {
+    display: none;
+}
+
+div.scale-items_container>input[type="button"] {
+    width: 100%;
+    color: var(--primary-color);
+    border: none;
+    border-bottom: 0.2rem solid transparent;
+    font-size: 0.8rem;
+    font-family: Prompt;
+    padding: 0.5rem 0.7rem;
+    background-color: rgb(93, 93, 64);
+    transform: scale(1);
+    outline: 0.2rem solid transparent;
+    outline-offset: -0.2rem;
+    transition: all 170ms ease-out;
+}
+
+div.scale-items_container>input#highly_disagree_btn.hover-state-one,
+div.scale-items_container>input#disagree_btn.hover-state-one,
+div.scale-items_container>input#neutral_btn.hover-state-one,
+div.scale-items_container>input#agree_btn.hover-state-one,
+div.scale-items_container>input#highly_agree_btn.hover-state-one,
+div.scale-items_container>input[type="radio"]:checked+input#highly_disagree_btn,
+div.scale-items_container>input[type="radio"]:checked+input#disagree_btn,
+div.scale-items_container>input[type="radio"]:checked+input#neutral_btn,
+div.scale-items_container>input[type="radio"]:checked+input#agree_btn,
+div.scale-items_container>input[type="radio"]:checked+input#highly_agree_btn {
+    transition: all 150ms ease-out;
+    border-color: transparent;
+    color: var(--primary-color);
+    cursor: pointer;
+}
+
+div.scale-items_container>input.hover-state-two,
+div.scale-items_container>input[type="radio"]:checked+input[type="button"] {
+    outline-color: rgb(93, 93, 64);
+}
+
+div.scale-items_container>input[type="radio"]:checked+input[type="button"] {
+    transform: scale(1.03);
+}
+
+div.scale-items_container>input[type="button"].pulse {
+    filter: brightness(1.5);
+}
+
+div.scale-items_container>input#highly_disagree_btn {
+    color: #fa2d2d;
+    border-bottom-color: #fa2d2d;
+}
+
+div.scale-items_container>input#highly_disagree_btn.hover-state-one,
+div.scale-items_container>input[type="radio"]:checked+input#highly_disagree_btn {
+    background-color: #fa2d2d;
+}
+
+div.scale-items_container>input#disagree_btn {
+    color: #ff591b;
+    border-bottom-color: #ff591b;
+}
+
+div.scale-items_container>input#disagree_btn.hover-state-one,
+div.scale-items_container>input[type="radio"]:checked+input#disagree_btn {
+    background-color: #ff591b;
+}
+
+div.scale-items_container>input#neutral_btn {
+    color: #e4bb27;
+    border-bottom-color: #e4bb27;
+}
+
+div.scale-items_container>input#neutral_btn.hover-state-one,
+div.scale-items_container>input[type="radio"]:checked+input#neutral_btn {
+    background-color: #e4bb27;
+}
+
+div.scale-items_container>input#agree_btn {
+    color: #8ee817;
+    border-bottom-color: #8ee817;
+}
+
+div.scale-items_container>input#agree_btn.hover-state-one,
+div.scale-items_container>input[type="radio"]:checked+input#agree_btn {
+    background-color: #8ee817;
+}
+
+div.scale-items_container>input#highly_agree_btn {
+    color: #1fdc2e;
+    border-bottom-color: #1fdc2e;
+}
+
+div.scale-items_container>input#highly_agree_btn.hover-state-one,
+div.scale-items_container>input[type="radio"]:checked+input#highly_agree_btn {
+    background-color: #1fdc2e;
+}
+
+
+
+/*===================
+POLL NAVIGATION
+====================*/
+
+div.poll-navi-btns_container {
+    display: flex;
+    align-items: center;
+    background-color: var(--color-one);
+    border-radius: 0.5rem;
+    transition: 150ms ease-out;
+    transition-property: width, background-color;
+    cursor: pointer;
+    width: 34px;
+}
+
+div.poll-navi-btns_container.left {
+    grid-area: btn-left;
+    margin-right: 0.5rem;
+}
+
+div.poll-navi-btns_container.right {
+    grid-area: btn-right;
+    margin-left: 0.5rem;
+}
+
+div.poll-navi-btns_container[show="false"].left,
+div.poll-navi-btns_container[show="false"].right {
+    width: 0;
+}
+
+div.width-navi-btns_container[show="false"]>svg {
+    width: 0;
+}
+
+div.poll-navi-btns_container[show="true"] {
+    transform: scaleX(1);
+}
+
+div.poll-navi-btns_container:hover {
+    transform: scale(1.03);
+}
+
+div.poll-navi-btns_container.right:hover {
+    background-color: rgb(60, 179, 13);
+}
+
+div.poll-navi-btns_container.left:hover {
+    background-color: rgb(64, 116, 138);
+}
+
+@media only screen and (max-width: 328px) {
+    div.poll-navi-btns_container {
+        height: 2.4rem;
+        align-self: center;
+        justify-self: stretch;
+        transition-property: background-color;
+    }
+
+    div.poll-navi-btns_container.left {
+        justify-content: start;
+        width: 100%;
+        margin: 0;
+    }
+
+    div.poll-navi-btns_container.right {
+        justify-content: flex-end;
+        width: 100%;
+        margin: 0;
+    }
+}
