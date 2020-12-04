@@ -25,7 +25,7 @@ const initiate_survey = (questions_json = JSON) => {
 
   const ask_w_answ_arr = {};
 
-  let answer = 0;
+  let answer = "";
 
   let user_form = {
     in_use: false,
@@ -42,7 +42,7 @@ const initiate_survey = (questions_json = JSON) => {
 
   //ADDS A NEW ANSWER TO QUESTION OBJECT TO THE GLOBALLY DECLARED OBJECT
   const submit_poll = (question_index) => {
-    const data = $("form#five-point-scale").serialize();
+    const data = $("form#qualit-answer").serialize();
     answer = data.split("=")[1];
     ask_w_answ_arr[question_index] = {
       text: questions_json[question_index].text,
@@ -50,15 +50,12 @@ const initiate_survey = (questions_json = JSON) => {
       id: questions_json[question_index].id,
       answ: answer,
     };
-    console.log(ask_w_answ_arr);
   };
 
-  // HIGHLIGHTS THE BUTTON CHOSED BY THE USER DEPENDING ON THE QUESTION; THE QUESTION INDEX (QUESTION_ITEM)
   const ans_snapshot = () => {
-    const checked_btn = $(
-      `div.scale-items_container>input[type="radio"][value="${ask_w_answ_arr[question_item].answ}"]`
+    $("textarea#id_answer").val(
+      ask_w_answ_arr[question_item].answ.replace(/(%20)/g, " ")
     );
-    $(checked_btn).prop("checked", true);
   };
 
   // SHOWS THE USER FORM BY FIRST REQUESTING ON THE FORM HTML. IF THE USER WENT
@@ -108,9 +105,6 @@ const initiate_survey = (questions_json = JSON) => {
     user_form.in_use = true;
   };
 
-  //HIDES FIRST THE FORM AND MAKE IT display:none. THEN THE FUNCTION SETS THE CSS DISPLAY
-  //PROPERTY OF THE PREVIOUS ELEMENTS (THE QUESTIONS AND LIKERT SCALE) TO BLOCK AND
-  //SETS THE OPACITY TO 1 AND THEN FINISHING IT BY REMOVING THE TRANSITION PROPERTY.
   const user_data_form_hide = (flow = "") => {
     user_form.in_use = false;
 
@@ -128,7 +122,6 @@ const initiate_survey = (questions_json = JSON) => {
         }, 150);
         $(html_elems.user_form_container).css({ opacity: 0 });
       } else {
-        console.log("next");
         setTimeout(() => {
           $(html_elems.poll_container_main)
             .attr("style", "")
@@ -137,9 +130,9 @@ const initiate_survey = (questions_json = JSON) => {
           $(html_elems.user_form_container).css({ display: "none" });
           setTimeout(() => {
             $(html_elems.user_form_container).css("transition", "");
-            $("section.misc-question_container").css("opacity", "1");
+            $("section.misc-message_container").css("opacity", "1");
           }, 100);
-          $("section.misc-question_container").css("display", "block");
+          $("section.misc-message_container").css("display", "block");
         }, 150);
         $(html_elems.user_form_container).css({ opacity: 0 });
       }
@@ -148,18 +141,39 @@ const initiate_survey = (questions_json = JSON) => {
     if (flow === "prev") {
       change_panel();
     } else if (flow === "next") {
-      console.log("next");
-      (async () => {
-        response = await api_get_req({
-          api_link: [api.type.misc, api.type.question, "vicinity"],
-          accept: api.accept.html,
-        });
-        html = await response.text();
-        $(html_elems.poll_container_main).append(`
-        <section class="misc-question_container" style="opacity: 0; display:none">${html}</section>
+      if (
+        user_form.input_data.first_name &&
+        user_form.input_data.last_name &&
+        user_form.input_data.birthday
+      ) {
+        (async () => {
+          response = await api_get_req({
+            api_link: [api.type.misc, api.type.message, "farewell"],
+            accept: api.accept.html,
+          });
+          html = await response.text();
+          $(html_elems.poll_container_main).append(`
+        <section class="misc-message_container" style="opacity: 0; display:none">${html}</section>
         `);
-        change_panel();
-      })();
+          change_panel();
+        })();
+      } else {
+        $("form#user-form>fieldset>div.input_container").each(function (
+          index,
+          element
+        ) {
+          const child_elem = $(element).children("input");
+          if (child_elem.val() === "") {
+            child_elem.attr("valid", "true");
+          } else {
+            child_elem.removeAttr("valid");
+          }
+        });
+        setTimeout(() => {
+          $("form#user-form>fieldset>div.input_container").removeClass("pulse");
+        }, 200);
+        $("form#user-form>fieldset>div.input_container").addClass("pulse");
+      }
     } else {
       throw `Invalid Argument for function user_data_form_hide("${flow}").
       Use only two arguments, "prev" and "next".`;
@@ -183,14 +197,12 @@ const initiate_survey = (questions_json = JSON) => {
       };
       console.log(user_form.input_data);
     }
-    $('div.scale-items_container>input[type="radio"]').prop("checked", false);
-    if (!answer) {
+    $("textarea#id_answer").val("");
+    if (!answer && $(e.target).is(".right")) {
       setTimeout(() => {
-        $('div.scale-items_container>input[type="button"]').removeClass(
-          "pulse"
-        );
+        $("textarea#id_answer").removeClass("pulse");
       }, 200);
-      $('div.scale-items_container>input[type="button"]').addClass("pulse");
+      $("textarea#id_answer").addClass("pulse");
     }
   });
 
@@ -226,13 +238,11 @@ const initiate_survey = (questions_json = JSON) => {
     if (user_form.in_use) {
       user_data_form_hide("prev");
     } else {
-      if (answer) {
-        print_data(
-          ask_w_answ_arr[--question_item]
-            ? ask_w_answ_arr[question_item]
-            : questions_json[question_item]
-        );
-      }
+      print_data(
+        ask_w_answ_arr[--question_item]
+          ? ask_w_answ_arr[question_item]
+          : questions_json[question_item]
+      );
     }
     if (ask_w_answ_arr[question_item]) ans_snapshot();
   });

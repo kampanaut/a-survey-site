@@ -50,6 +50,12 @@ form#user-form div.input_container>input {
     transition: transform 100ms ease-out;
 }
 
+form#user-form div.input_container.pulse>input[valid="true"] {
+    transform: scale(1.05);
+    filter: brightness(1.2);
+    /* background-color: #fb768e; */
+}
+
 form#user-form div.input_container>input:hover {
     transform: scale(1.05);
 }

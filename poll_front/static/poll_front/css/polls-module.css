@@ -147,6 +147,12 @@ fieldset>textarea#id_answer {
     letter-spacing: 0.5px;
 }
 
+fieldset>textarea#id_answer.pulse {
+    /* filter: brightness(1.3); */
+    background-color: #ff577780;
+    ;
+}
+
 fieldset>textarea#id_answer:hover {
     background-color: rgba(0, 0, 0, 0.05);
     border-color: var(--color-one);

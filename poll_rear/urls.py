@@ -9,4 +9,6 @@ urlpatterns = [
          name="Fetch-Participant-Form"),
     path('misc/questions/vicinity/fetch', Misc.VicinityQuestion.as_view(),
          name="Fetch-Vicinity-Question"),
+    path('misc/messages/farewell/fetch',
+         Misc.FarewellMsg.as_view(), name="Fetch-Farewell-Message")
 ]

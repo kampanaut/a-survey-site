@@ -25,7 +25,7 @@ const initiate_survey = (questions_json = JSON) => {
 
   const ask_w_answ_arr = {};
 
-  let answer = 0;
+  let answer = "";
 
   let user_form = {
     in_use: false,
