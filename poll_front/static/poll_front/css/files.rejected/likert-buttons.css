@@ -1,0 +1,106 @@
+fieldset>div.scale-items_container {
+    display: flex;
+    align-items: center;
+    padding: 0.2rem 0.2rem 0;
+    margin: 0.5rem 0;
+    height: 2rem;
+    flex-grow: 1;
+}
+
+div.scale-items_container>input[type="radio"] {
+    display: none;
+}
+
+div.scale-items_container>input[type="button"] {
+    width: 100%;
+    color: var(--primary-color);
+    border: none;
+    border-bottom: 0.2rem solid transparent;
+    font-size: 0.8rem;
+    font-family: Prompt;
+    padding: 0.5rem 0.7rem;
+    background-color: rgb(93, 93, 64);
+    transform: scale(1);
+    outline: 0.2rem solid transparent;
+    outline-offset: -0.2rem;
+    transition: all 170ms ease-out;
+}
+
+div.scale-items_container>input#highly_disagree_btn.hover-state-one,
+div.scale-items_container>input#disagree_btn.hover-state-one,
+div.scale-items_container>input#neutral_btn.hover-state-one,
+div.scale-items_container>input#agree_btn.hover-state-one,
+div.scale-items_container>input#highly_agree_btn.hover-state-one,
+div.scale-items_container>input[type="radio"]:checked+input#highly_disagree_btn,
+div.scale-items_container>input[type="radio"]:checked+input#disagree_btn,
+div.scale-items_container>input[type="radio"]:checked+input#neutral_btn,
+div.scale-items_container>input[type="radio"]:checked+input#agree_btn,
+div.scale-items_container>input[type="radio"]:checked+input#highly_agree_btn {
+    transition: all 150ms ease-out;
+    border-color: transparent;
+    color: var(--primary-color);
+    cursor: pointer;
+}
+
+div.scale-items_container>input.hover-state-two,
+div.scale-items_container>input[type="radio"]:checked+input[type="button"] {
+    outline-color: rgb(93, 93, 64);
+}
+
+div.scale-items_container>input[type="radio"]:checked+input[type="button"] {
+    transform: scale(1.03);
+}
+
+div.scale-items_container>input[type="button"].pulse {
+    filter: brightness(1.5);
+}
+
+div.scale-items_container>input#highly_disagree_btn {
+    color: #fa2d2d;
+    border-bottom-color: #fa2d2d;
+}
+
+div.scale-items_container>input#highly_disagree_btn.hover-state-one,
+div.scale-items_container>input[type="radio"]:checked+input#highly_disagree_btn {
+    background-color: #fa2d2d;
+}
+
+div.scale-items_container>input#disagree_btn {
+    color: #ff591b;
+    border-bottom-color: #ff591b;
+}
+
+div.scale-items_container>input#disagree_btn.hover-state-one,
+div.scale-items_container>input[type="radio"]:checked+input#disagree_btn {
+    background-color: #ff591b;
+}
+
+div.scale-items_container>input#neutral_btn {
+    color: #e4bb27;
+    border-bottom-color: #e4bb27;
+}
+
+div.scale-items_container>input#neutral_btn.hover-state-one,
+div.scale-items_container>input[type="radio"]:checked+input#neutral_btn {
+    background-color: #e4bb27;
+}
+
+div.scale-items_container>input#agree_btn {
+    color: #8ee817;
+    border-bottom-color: #8ee817;
+}
+
+div.scale-items_container>input#agree_btn.hover-state-one,
+div.scale-items_container>input[type="radio"]:checked+input#agree_btn {
+    background-color: #8ee817;
+}
+
+div.scale-items_container>input#highly_agree_btn {
+    color: #1fdc2e;
+    border-bottom-color: #1fdc2e;
+}
+
+div.scale-items_container>input#highly_agree_btn.hover-state-one,
+div.scale-items_container>input[type="radio"]:checked+input#highly_agree_btn {
+    background-color: #1fdc2e;
+}

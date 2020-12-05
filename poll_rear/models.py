@@ -41,12 +41,17 @@ class Question(models.Model):
 
 
 class Answer(models.Model):
-    class AnswerChoices(models.IntegerChoices):
-        STRONGLY_DISAGREE = 1
-        DISAGREE = 2
-        UNDECIDED = 3
-        AGREE = 4
-        STRONGLY_AGREE = 5
+    # class AnswerChoices(models.IntegerChoices):
+    #     STRONGLY_DISAGREE = 1
+    #     DISAGREE = 2
+    #     UNDECIDED = 3
+    #     AGREE = 4
+    #     STRONGLY_AGREE = 5
+    # answer = models.IntegerField(
+    #     choices=AnswerChoices.choices,
+    #     null=False,
+    #     blank=True,
+    # )
 
     participant = models.ForeignKey(
         Participant,
@@ -58,10 +63,11 @@ class Answer(models.Model):
         related_name="answers",
         on_delete=models.CASCADE,
     )
-    answer = models.IntegerField(
-        choices=AnswerChoices.choices,
+    answer = models.CharField(
+        'Answer',
+        max_length=700,
         null=False,
-        blank=True,
+        blank=False
     )
 
     def __str__(self):

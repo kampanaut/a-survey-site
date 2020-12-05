@@ -1,5 +1,4 @@
-section.topbar
-{
+section.topbar {
     position: fixed;
     top: 0;
     width: 100vw;
@@ -10,8 +9,7 @@ section.topbar
     padding: 10px;
 }
 
-section.topbar > div.block-grid
-{
+section.topbar>div.block-grid {
     display: flex;
     flex-direction: row;
     justify-content: left;
@@ -19,8 +17,7 @@ section.topbar > div.block-grid
     height: 100%;
 }
 
-div.block-grid > section.website-name
-{
+div.block-grid>section.website-name {
     height: 100%;
     width: fit-content;
     padding: 0.05rem;
@@ -30,20 +27,15 @@ div.block-grid > section.website-name
     height: fit-content;
 }
 
-@media only screen and (max-width:255px)
-{
-    section.topbar
-    {
+@media only screen and (max-width:255px) {
+    section.topbar {
         width: 255px;
     }
 }
 
-@media only screen and (max-width: 328px)
-{
-    section.topbar
-    {
+@media only screen and (max-width: 328px) {
+    section.topbar {
         padding: 5px 10px;
         height: 4.7rem;
-        width: unset;
     }
 }

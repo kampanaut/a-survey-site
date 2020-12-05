@@ -6,6 +6,7 @@ const api = {
   api_root: "api",
   type: {
     question: "questions",
+    message: "messages",
     user: "users",
     answer: "answers",
     misc: "misc",

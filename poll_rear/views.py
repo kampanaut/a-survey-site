@@ -74,6 +74,8 @@ class Misc(object):
 
     vicinity_question = "Do you consider your hometown as rural or urban vicinity?"
 
+    farewell_message = """Hey guys thanks for joining us, see you again soon, maybe. Goodbye"""
+
     class VicinityQuestion(View):
         template_name = "poll_rear/misc/misc-question.html"
 
@@ -87,3 +89,7 @@ class Misc(object):
                 self.template_name,
                 context,
             )
+
+    class FarewellMsg(View):
+        def get(self, request, *args, **kwargs):
+            return HttpResponse(content=Misc.farewell_message, status=200)
