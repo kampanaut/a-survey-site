@@ -21,6 +21,30 @@ const api = {
   },
 };
 
+const refreshListeners = ({ domElement=[""], event: eventName=[""], functionCallback=[(e)=>e] }) => {
+  console.log(domElement, eventName, functionCallback);
+  if (Array.isArray(eventName)) eventName = eventName.join(", ")
+  $(domElement).off(eventName)
+  let callbacks = {};
+  if (!Array.isArray(domElement)) 
+  {
+    throw "Not an Array is given Argument to function, refreshListeners!"
+    domElement = domElement.join(", ");
+  }
+  else
+  {
+    for (const index in domElement)
+    {
+      callbacks[index] = {};
+      callbacks[index].func = functionCallback[index]; 
+    }
+    for (const index in domElement)
+    {
+      $(domElement[index]).off(eventName).on(eventName, (e) => {callbacks[index].func(e)});
+    }
+  }
+}
+
 const api_get_req = ({ api_link = [""], get_req = "", accept }) => {
   if (Array.isArray(api_link)) api_link = api_link.join("/");
   else api_link = [api_link];

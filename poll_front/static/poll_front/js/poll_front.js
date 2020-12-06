@@ -5,7 +5,8 @@ const load_polls = async () => {
 	});
 	data = await response.json();
 	console.log(data);
-	initiate_survey(data.questions);
+	data = data.questions;
+	initiate_survey(data);
 };
 $(document).ready(() => {
 	const promise = new Promise((resolve, reject) => {

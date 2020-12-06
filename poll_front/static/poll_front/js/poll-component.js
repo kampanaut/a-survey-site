@@ -20,8 +20,6 @@ const print_data = (question_text) => {
 //INITIATES ALL OF THE CORE FUNCTIONS OF THE POLL SURVEY FUNCTIONALITY
 const initiate_survey = (questions_json = JSON) => {
 	cur_question_item = Object.keys(questions_json)[cur_question_key];
-	console.log(cur_question_item);
-	console.log('QUESTIONS: ', questions_json);
 	const ask_w_answ_arr = {};
 	let answer = '';
 	let user_form = {
@@ -167,6 +165,49 @@ const initiate_survey = (questions_json = JSON) => {
 		}
 	};
 
+	const right_navigation_btn_default = (e) => {
+		console.log('%cNEXT PANEL', 'color:#4fdf4f;');
+		if (user_form.in_use) {
+			console.log(e.type);
+			refreshListeners({
+				domElement: ['div.poll-navi-btns_container.right', 'div.poll-navi-btns_container.left'],
+				event: e.type,
+				functionCallback: [right_navigation_btn_end_panel, left_navigation_btn_end_panel]
+			});
+			user_data_form_hide('next');
+			answer = undefined;
+		}
+		if (answer) {
+			if (cur_question_item != last_id_key) {
+				cur_question_item = Object.keys(questions_json)[++cur_question_key];
+				print_data(ask_w_answ_arr[cur_question_item] ? ask_w_answ_arr[cur_question_item] : questions_json[cur_question_item]);
+				if (ask_w_answ_arr[cur_question_item]) ans_snapshot();
+			} else {
+				console.log('Using User Form');
+				user_data_form_show();
+			}
+		}
+	}
+
+	const left_navigation_btn_default = (e) => {
+		console.log('%cPREV PANEL', 'color:#4bb6e0;');
+		if (user_form.in_use) {
+			user_data_form_hide('prev');
+		} else {
+			cur_question_item = Object.keys(questions_json)[--cur_question_key];
+			print_data(ask_w_answ_arr[cur_question_item] ? ask_w_answ_arr[cur_question_item] : questions_json[cur_question_item]);
+		}
+		if (ask_w_answ_arr[cur_question_item]) ans_snapshot();
+	}
+
+	const right_navigation_btn_end_panel = (e) => {
+		alert("END PANEL NAVI RIGHT CALLBACK")
+	};
+
+	const left_navigation_btn_end_panel = (e) => {
+		alert("END PANEL NAVI LEFT CALLBACK")
+	};
+
 	//Event listeners for the two buttons in order to navigate between panels of question and forms
 	$('div.poll-navi-btns_container').click((e) => {
 		console.log('%cNAVIGATION BUTTON CLICKED', 'color: #ffae17');
@@ -193,35 +234,10 @@ const initiate_survey = (questions_json = JSON) => {
 	});
 
 	//Event listener specifically for the right side button, the NEXT button
-	$('div.poll-navi-btns_container.right:not([state="submit"])').click((e) => {
-		console.log('%cNEXT PANEL', 'color:#4fdf4f;');
-		if (user_form.in_use) {
-			user_data_form_hide('next');
-			answer = undefined;
-		}
-		if (answer) {
-			if (cur_question_item != last_id_key) {
-				cur_question_item = Object.keys(questions_json)[++cur_question_key];
-				print_data(ask_w_answ_arr[cur_question_item] ? ask_w_answ_arr[cur_question_item] : questions_json[cur_question_item]);
-				if (ask_w_answ_arr[cur_question_item]) ans_snapshot();
-			} else {
-				console.log('Using User Form');
-				user_data_form_show();
-			}
-		}
-	});
+	$('div.poll-navi-btns_container.right:not([state="submit"])').click((e) => right_navigation_btn_default(e));
 
 	//Event listener specifically for the left side button, the PREV button
-	$('div.poll-navi-btns_container.left:not([state="submit"])').click((e) => {
-		console.log('%cPREV PANEL', 'color:#4bb6e0;');
-		if (user_form.in_use) {
-			user_data_form_hide('prev');
-		} else {
-			cur_question_item = Object.keys(questions_json)[--cur_question_key];
-			print_data(ask_w_answ_arr[cur_question_item] ? ask_w_answ_arr[cur_question_item] : questions_json[cur_question_item]);
-		}
-		if (ask_w_answ_arr[cur_question_item]) ans_snapshot();
-	});
+	$('div.poll-navi-btns_container.left:not([state="submit"])').click((e) => left_navigation_btn_default(e));
 };
 const survey_btn_listeners = () => {
 	$(' div.scale-items_container > input[type="button"]')
