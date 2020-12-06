@@ -141,8 +141,8 @@ const initiate_survey = (questions_json = JSON) => {
 					});
 					html = await response.text();
 					$(html_elems.poll_container_main).append(`
-        <section class="misc-message_container" style="opacity: 0; display:none">${html}</section>
-        `);
+							<section class="misc-message_container" style="opacity: 0; display:none">${html}</section>
+						`);
 					$('div.poll-navi-btns_container').attr('state', 'submit');
 					change_panel();
 				})();

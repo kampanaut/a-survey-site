@@ -91,5 +91,15 @@ class Misc(object):
             )
 
     class FarewellMsg(View):
+        template_name = "poll_rear/misc/farewell-goodbye.html"
+
         def get(self, request, *args, **kwargs):
-            return HttpResponse(content=Misc.farewell_message, status=200)
+
+            context = {'message': Misc.farewell_message}
+
+            return render(
+                request,
+                self.template_name,
+                context,
+                status=200
+            )
