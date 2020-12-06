@@ -12,7 +12,7 @@ class QuestionsFetch(View):
     template_name = 'poll_front/poll-module.html'
 
     def get(self, request, *args, **kwargs):
-        questions = Question.objects.all()
+        questions = Question.objects.order_by('sort')
         questions_arr = list()
         question_tup = tuple()
         context = {

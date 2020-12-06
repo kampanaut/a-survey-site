@@ -1,4 +1,5 @@
-let question_item = 1;
+let cur_question_item = 0;
+let cur_question_key = 0;
 
 const html_elems = {
 	likert_and_question: $('main.poll-container_main>section, main.poll-container_main>hr'),
@@ -12,13 +13,15 @@ const poll_component = () => {};
 const print_data = (question_text) => {
 	console.log('%cPrinted the Question: ', 'color: #ffae17', question_text);
 	$('div#question_text>span').html(question_text.text);
-	$('div.question-item-info.sort>span').html(`item no. <span>${question_text.sort}</span>`);
+	$('div.question-item-info.sort>span').html(`item no. <span>${cur_question_key + 1}</span>`);
 	survey_navi_btn_check(question_text);
 };
 
 //INITIATES ALL OF THE CORE FUNCTIONS OF THE POLL SURVEY FUNCTIONALITY
 const initiate_survey = (questions_json = JSON) => {
-	question_item = Object.keys(questions_json)[0];
+	cur_question_item = Object.keys(questions_json)[cur_question_key];
+	console.log(cur_question_item);
+	console.log('QUESTIONS: ', questions_json);
 	const ask_w_answ_arr = {};
 	let answer = '';
 	let user_form = {
@@ -29,7 +32,7 @@ const initiate_survey = (questions_json = JSON) => {
 	const question_total = Object.keys(questions_json).length;
 	const last_id_key = Object.keys(questions_json)[question_total - 1];
 
-	print_data(questions_json[question_item]);
+	print_data(questions_json[cur_question_item]);
 
 	//Assign TOTAL QUESTIONS
 	$('div.question-item-info.total>span').html(`total items: <span>${question_total}</span>`);
@@ -45,21 +48,17 @@ const initiate_survey = (questions_json = JSON) => {
 			id: questions_json[question_index].id,
 			answ: answer,
 		};
-		console.log(
-			`%cArrays of Answer: `,
-			'color: #f27100; background-color: #1c1c1c; font-weight: bold;',
-			ask_w_answ_arr
-		);
+		console.log(`%cArrays of Answer: `, 'color: #f27100; background-color: #1c1c1c; font-weight: bold;', ask_w_answ_arr);
 		console.log(
 			`%cLatest question ID saved inside:`,
 			'color: #f27100; background-color: #1c1c1c; font-weight: bold;',
-			ask_w_answ_arr[question_item].id
+			ask_w_answ_arr[cur_question_item].id
 		);
 	};
 
 	//A function that puts the previous answer saved from the global stack to the textarea input
 	const ans_snapshot = () => {
-		$('textarea#id_answer').val(ask_w_answ_arr[question_item].answ.replace(/(%20)/g, ' '));
+		$('textarea#id_answer').val(ask_w_answ_arr[cur_question_item].answ.replace(/(%20)/g, ' '));
 	};
 
 	//A function that shows the user form
@@ -116,10 +115,7 @@ const initiate_survey = (questions_json = JSON) => {
 				$(html_elems.user_form_container).css({ opacity: 0 });
 			} else {
 				setTimeout(() => {
-					$(html_elems.poll_container_main)
-						.attr('style', '')
-						.removeClass('is-user-form')
-						.addClass('is-question-form');
+					$(html_elems.poll_container_main).attr('style', '').removeClass('is-user-form').addClass('is-question-form');
 					$(html_elems.user_form_container).css({ display: 'none' });
 					setTimeout(() => {
 						$(html_elems.user_form_container).css('transition', '');
@@ -174,7 +170,7 @@ const initiate_survey = (questions_json = JSON) => {
 	//Event listeners for the two buttons in order to navigate between panels of question and forms
 	$('div.poll-navi-btns_container').click((e) => {
 		console.log('%cNAVIGATION BUTTON CLICKED', 'color: #ffae17');
-		if (!user_form.in_use) submit_poll(question_item);
+		if (!user_form.in_use) submit_poll(cur_question_item);
 		else {
 			user_form.input_data = {
 				first_name: $('form#user-form>fieldset>div.first-name>input').val(),
@@ -204,11 +200,10 @@ const initiate_survey = (questions_json = JSON) => {
 			answer = undefined;
 		}
 		if (answer) {
-			if (question_item != last_id_key) {
-				print_data(
-					ask_w_answ_arr[++question_item] ? ask_w_answ_arr[question_item] : questions_json[question_item]
-				);
-				if (ask_w_answ_arr[question_item]) ans_snapshot();
+			if (cur_question_item != last_id_key) {
+				cur_question_item = Object.keys(questions_json)[++cur_question_key];
+				print_data(ask_w_answ_arr[cur_question_item] ? ask_w_answ_arr[cur_question_item] : questions_json[cur_question_item]);
+				if (ask_w_answ_arr[cur_question_item]) ans_snapshot();
 			} else {
 				console.log('Using User Form');
 				user_data_form_show();
@@ -222,9 +217,10 @@ const initiate_survey = (questions_json = JSON) => {
 		if (user_form.in_use) {
 			user_data_form_hide('prev');
 		} else {
-			print_data(ask_w_answ_arr[--question_item] ? ask_w_answ_arr[question_item] : questions_json[question_item]);
+			cur_question_item = Object.keys(questions_json)[--cur_question_key];
+			print_data(ask_w_answ_arr[cur_question_item] ? ask_w_answ_arr[cur_question_item] : questions_json[cur_question_item]);
 		}
-		if (ask_w_answ_arr[question_item]) ans_snapshot();
+		if (ask_w_answ_arr[cur_question_item]) ans_snapshot();
 	});
 };
 const survey_btn_listeners = () => {
