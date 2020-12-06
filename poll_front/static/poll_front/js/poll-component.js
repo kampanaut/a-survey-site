@@ -12,6 +12,7 @@ const poll_component = () => {};
 
 //PRINTS THE QUESTION TEXT THE QUESTION CONTAINER ELEMENT
 const print_data = (question_text) => {
+  console.log("%cPrinted the Question: ", "color: #ffae17", question_text);
   $("div#question_text>span").html(question_text.text);
   $("div.question-item-info.sort>span").html(
     `item no. <span>${question_text.sort}</span>`
@@ -21,26 +22,23 @@ const print_data = (question_text) => {
 
 //INITIATES ALL OF THE CORE FUNCTIONS OF THE POLL SURVEY FUNCTIONALITY
 const initiate_survey = (questions_json = JSON) => {
+  question_item = Object.keys(questions_json)[0];
   print_data(questions_json[question_item]);
-
   const ask_w_answ_arr = {};
-
   let answer = "";
-
   let user_form = {
     in_use: false,
     input_data: null,
     requested: false,
   };
+  const count = Object.keys(questions_json)[
+    Object.keys(questions_json).length - 1
+  ];
 
-  const count = Object.keys(questions_json).length;
   $("div.question-item-info.total>span").html(
     `total items: <span>${count}</span>`
   );
-
   survey_btn_listeners();
-
-  //ADDS A NEW ANSWER TO QUESTION OBJECT TO THE GLOBALLY DECLARED OBJECT
   const submit_poll = (question_index) => {
     const data = $("form#qualit-answer").serialize();
     answer = data.split("=")[1];
@@ -50,17 +48,22 @@ const initiate_survey = (questions_json = JSON) => {
       id: questions_json[question_index].id,
       answ: answer,
     };
+    console.log(
+      `%cArrays of Answer: `,
+      "color: #f27100; background-color: #1c1c1c; font-weight: bold;",
+      ask_w_answ_arr
+    );
+    console.log(
+      `%cLatest question ID saved inside:`,
+      "color: #f27100; background-color: #1c1c1c; font-weight: bold;",
+      ask_w_answ_arr[question_item].id
+    );
   };
-
   const ans_snapshot = () => {
     $("textarea#id_answer").val(
       ask_w_answ_arr[question_item].answ.replace(/(%20)/g, " ")
     );
   };
-
-  // SHOWS THE USER FORM BY FIRST REQUESTING ON THE FORM HTML. IF THE USER WENT
-  // TO PREVIOUS SLIDE (TO THE QUESTION) AND DECIDED TO GO BACK, IT THEN JUST ONLY
-  // SHOW THE HTML FORM HIDDEN THROUGH display:none
   const user_data_form_show = async () => {
     const height = $(html_elems.poll_container_main).css("height");
     if (!user_form.requested) {
@@ -104,10 +107,7 @@ const initiate_survey = (questions_json = JSON) => {
     });
     user_form.in_use = true;
   };
-
   const user_data_form_hide = (flow = "") => {
-    user_form.in_use = false;
-
     const change_panel = () => {
       if (flow === "prev") {
         setTimeout(() => {
@@ -137,8 +137,9 @@ const initiate_survey = (questions_json = JSON) => {
         $(html_elems.user_form_container).css({ opacity: 0 });
       }
     };
-
     if (flow === "prev") {
+      user_form.in_use = false;
+      console.log("Hiding User Form");
       change_panel();
     } else if (flow === "next") {
       if (
@@ -146,6 +147,8 @@ const initiate_survey = (questions_json = JSON) => {
         user_form.input_data.last_name &&
         user_form.input_data.birthday
       ) {
+        console.log("Hiding User Form");
+        user_form.in_use = false;
         (async () => {
           response = await api_get_req({
             api_link: [api.type.misc, api.type.message, "farewell"],
@@ -158,6 +161,7 @@ const initiate_survey = (questions_json = JSON) => {
           change_panel();
         })();
       } else {
+        console.log("%cIncomplete Form!", "color:orangered");
         $("form#user-form>fieldset>div.input_container").each(function (
           index,
           element
@@ -179,15 +183,8 @@ const initiate_survey = (questions_json = JSON) => {
       Use only two arguments, "prev" and "next".`;
     }
   };
-
-  //EVENT LISTENERS FOR BOTH THE BUTTONS. IT CHECKS FIRST WHETHER THE HTML FORM IS
-  //DISPLAYED, IF IT'S NOT, THE PROPGRAM CALLS THE FUNCTION THAT ADDS NEW SURVEY ANSWERS
-  //TO AN OBJECT, ELSE, IT JUST IGNORES THE FUNCTION ITSELF. IT THEN TURNS OFF THE CHECKED
-  //STATUSES OF THE RADIO BUTTONS WHICH ALSO AFFECTS THE DESIGN OF THE PROXY BUTTONS ITSELF
-  //DONE THROUGH A SELECTOR SPECIFIC STYLESHEET. IT THEN CHECKS IF THE USER HAS AN ANSWER OR
-  //NOT, THE PROGRAM WON'T ALLOW THE USER TO PROCEED OR PRECEED TO UPCOMING IF THERE'S NO CHOSEN
-  //ANSWER.
   $("div.poll-navi-btns_container").click((e) => {
+    console.log("%cNAVIGATION BUTTON CLICKED", "color: #ffae17");
     if (!user_form.in_use) submit_poll(question_item);
     else {
       user_form.input_data = {
@@ -195,7 +192,11 @@ const initiate_survey = (questions_json = JSON) => {
         last_name: $("form#user-form>fieldset>div.last-name>input").val(),
         birthday: $("form#user-form>fieldset>div.birth-date>input").val(),
       };
-      console.log(user_form.input_data);
+      console.log(
+        `%cUser input for User Data: `,
+        "color: #72db7a; background-color: #1c1c1c; font-weight: bold;",
+        user_form.input_data
+      );
     }
     $("textarea#id_answer").val("");
     if (!answer && $(e.target).is(".right")) {
@@ -205,16 +206,11 @@ const initiate_survey = (questions_json = JSON) => {
       $("textarea#id_answer").addClass("pulse");
     }
   });
-
-  //EVENT LISTENER FOR THE RIGHT-SIDE BUTTON. IT ACCESSES THE JSON OF QUESTIONS FROM THE SERVER
-  //AND TRAVERSES THROUGH THE JSON UPWARDS. IT ALSO CHECKS IF THE USER HAS AN ANSWER OR NOT. THIS
-  //IS WHERE THE ans_snapshot() and user_data_form_show() COMES TO PLAY. WHEN IT'S TRYING TO
-  //TRAVERSE IN THE JSON, IT FIRST CHECKS WHETHER THE UPCOMING QUESTION HAS AN ANSWER OR NOT,
-  //IF NOT, IT JUST ACCESSES THE JSON ARRAY OF QUESTIONS THAT CAME FROM THE SERVER, ELSE,
-  //IT JUST ACCESSES THE INDEX OF THE UPCOMING ANSWER FROM THE ANSWER WITH QUESTION ARRAY.
-  $("div.poll-navi-btns_container.right:not([state='submit']").click((e) => {
+  $("div.poll-navi-btns_container.right:not([state='submit'])").click((e) => {
+    console.log("%cNEXT PANEL", "color:#4fdf4f;");
     if (user_form.in_use) {
       user_data_form_hide("next");
+      answer = undefined;
     }
     if (answer) {
       if (question_item != count) {
@@ -225,16 +221,13 @@ const initiate_survey = (questions_json = JSON) => {
         );
         if (ask_w_answ_arr[question_item]) ans_snapshot();
       } else {
+        console.log("Using User Form");
         user_data_form_show();
       }
     }
   });
-
-  //EVENT LISTENER FOR THE LEFT-SIDE BUTTON. IT ALSO ACCESSES THE JSON ARRAYS LIKELY TO WHAT THE
-  //RIGHT-SIDE BUTTON IS PROGRAMMED TO DO. BUT, THIS EVENT LISTENERS ALWAYS CHECKS IF THE HTML FORM
-  //IS IN USE OR NOT, IF IT IS, IT THEN ADDS A NEW OBJECT TO THE OBJECT DECLARED ON THE UPPER PART
-  //OF THE CODE, IF IT'S NOT, IT JUST PROCEEDS TO THE NORMAL FUNCTION LIKE THE RIGHT-SIDE BUTTON DOES.
-  $("div.poll-navi-btns_container.left").click((e) => {
+  $("div.poll-navi-btns_container.left:not([state='submit'])").click((e) => {
+    console.log("%cPREV PANEL", "color:#4bb6e0;");
     if (user_form.in_use) {
       user_data_form_hide("prev");
     } else {
