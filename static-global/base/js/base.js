@@ -22,10 +22,8 @@ const api = {
 };
 
 const api_get_req = ({ api_link = [""], get_req = "", accept }) => {
-  console.log("api link[]: ", api_link);
   if (Array.isArray(api_link)) api_link = api_link.join("/");
   else api_link = [api_link];
-  console.log("api link: ", api_link);
   return fetch(
     `${api.api_root}/${api_link}/fetch${get_req ? `?${get_req}` : ""}`,
     {
