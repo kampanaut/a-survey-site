@@ -20,9 +20,11 @@ class QuestionsFetch(View):
             'questions': questions
         }
 
+        print(questions)
+
         for a_question in questions:
             questions_dict.update({
-                a_question.sort: {
+                a_question.id: {
                     "text": a_question.question_text,
                     "sort": a_question.sort,
                     "id": a_question.id

@@ -20,6 +20,7 @@ const print_data = (question_text) => {
 //INITIATES ALL OF THE CORE FUNCTIONS OF THE POLL SURVEY FUNCTIONALITY
 const initiate_survey = (questions_json = JSON) => {
 	cur_question_item = Object.keys(questions_json)[cur_question_key];
+	console.log(questions_json);
 	const ask_w_answ_arr = {};
 	let answer = '';
 	let user_form = {
