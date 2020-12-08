@@ -8,7 +8,7 @@
 
 main.poll-site-content_main {
     width: 90vw;
-    height: 22rem;
+    /* height: 22rem; */
     display: flex;
     flex-direction: column;
     align-items: center;

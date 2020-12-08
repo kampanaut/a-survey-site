@@ -116,10 +116,16 @@ const load_polls = async () => {
 	data = await response.json();
 	console.log(data);
 	data = data.questions;
-	initiate_survey(sort({
-		data: data,
-		sortby: 'sort',
-	}));
+	try {
+		initiate_survey(sort({
+			data: data,
+			sortby: 'sort',
+		}));
+	}
+	catch (error) {
+		console.error(error);
+		alert("JS files fetch error.\nPlease reload page")
+	}
 };
 $(document).ready(() => {
 	const promise = new Promise((resolve, reject) => {

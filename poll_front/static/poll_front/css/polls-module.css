@@ -10,7 +10,8 @@ main.poll-container_main.is-user-form>section.answert-choice_container,
 main.poll-container_main.is-user-form>hr.break-line,
 main.poll-container_main.is-question-form>section.question-text_container,
 main.poll-container_main.is-question-form>section.answert-choice_container,
-main.poll-container_main.is-question-form>hr.break-line {
+main.poll-container_main.is-question-form>hr.break-line,
+main.poll-container_main.is-user-form>section.farewell-panel_container {
     display: none;
 }
 
@@ -265,6 +266,11 @@ div.poll-navi-btns_container[show="false"].right {
     width: 0;
 }
 
+div.poll-navi-btns_container[state="submit"].right:not(.confirmed) {
+    opacity: 0.4;
+    background-color: grey;
+}
+
 div.width-navi-btns_container[show="false"]>svg {
     width: 0;
 }
@@ -304,4 +310,135 @@ div.poll-navi-btns_container.left:hover {
         width: 100%;
         margin: 0;
     }
+}
+
+
+/*===================
+FAREWELL MESSAGE
+====================*/
+
+section.farewell-panel_container {
+    height: 100%;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 2.5rem 0.7rem;
+}
+
+section.farewell-message_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--primary-color);
+    color: var(--secondary-color);
+    border-radius: 0.2rem;
+    margin: 0.2rem;
+    min-height: 7.5rem;
+    padding: 0.7rem 0;
+    transition: all 100ms ease-out;
+}
+
+div.farewell-message_text {
+    font-size: 1.25rem;
+    text-align: center;
+    width: 95%;
+}
+
+section.farewell-message_container:hover,
+section.proceed-btn_container:hover {
+    background-color: #f2cb57;
+    color: var(--color-two);
+    transform: scale(1.01);
+    cursor: default;
+}
+
+section.proceed-btn_container {
+    transition: all 100ms ease-out;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--primary-color);
+    border-radius: 0.2rem;
+    margin: 0.4rem 0.2rem 0;
+    min-height: 9rem;
+}
+
+@media only screen and (max-width: 328px) {
+    section.proceed-btn_container {
+        margin-top: 1.4rem;
+    }
+}
+
+@media only screen and (max-width: 380px) {
+    div.proceed-btn_wrapper {
+        margin: 0.7rem 0 0;
+    }
+}
+
+div.proceed-btn_box {
+    min-height: 7rem;
+    padding: 1rem 4%;
+}
+
+div.proceed-notice-message_container {
+    font-size: 0.95rem;
+    font-family: Muli;
+    text-align: center;
+    margin: 0.2rem 0;
+}
+
+div.proceed-btn_wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    margin: 1.2rem 0 0;
+}
+
+label.confirm-btn-wrapper {
+    font-family: Prompt;
+    font-size: 1rem;
+    display: inline-block;
+    vertical-align: top;
+    margin: 0;
+}
+
+label.confirm-btn-wrapper>input[type="checkbox"] {
+    display: none;
+}
+
+label.confirm-btn-wrapper>span.confirm-btn {
+    position: relative;
+    display: inline-block;
+    background-color: #ffffff;
+    color: #fe4e00a3;
+    border: 0.2rem solid #fe4e00a3;
+    border-radius: 0.2rem;
+    padding: 0.4rem 0.8rem 0.4rem 1.85rem;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    line-height: 1.47rem;
+}
+
+label.confirm-btn-wrapper>span.confirm-btn:before {
+    position: absolute;
+    margin: auto;
+    top: 0.73rem;
+    left: 0.75rem;
+    right: auto;
+    display: inline-block;
+    width: 0.7rem;
+    height: 0.7rem;
+    content: "";
+    background-color: #fe4e00a3;
+    transition: all 0.3s ease;
+}
+
+input#confirm-check:checked+span.confirm-btn {
+    background-color: #57bf2ff0;
+    border-color: #57bf2ff0;
+    color: var(--primary-color);
+}
+
+input#confirm-check:checked+span.confirm-btn:before {
+    background-color: var(--primary-color);
 }

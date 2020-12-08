@@ -54,7 +54,7 @@ class Misc(object):
 
     vicinity_question = "Do you consider your hometown as rural or urban vicinity?"
 
-    farewell_message = """Hey guys thanks for joining us, see you again soon, maybe. Goodbye"""
+    farewell_message = """Hey man, you have reached the end, thanks for joining us, see you again soon, maybe. Goodbye"""
 
     class VicinityQuestion(View):
         template_name = "poll_rear/misc/misc-question.html"
