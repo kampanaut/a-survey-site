@@ -22,7 +22,6 @@ const api = {
 };
 
 const refreshListeners = ({ domElement=[""], event: eventName=[""], functionCallback=[(e)=>e] }) => {
-  console.log(domElement, eventName, functionCallback);
   if (Array.isArray(eventName)) eventName = eventName.join(", ")
   $(domElement).off(eventName)
   let callbacks = {};
@@ -33,14 +32,11 @@ const refreshListeners = ({ domElement=[""], event: eventName=[""], functionCall
   }
   else
   {
-    for (const index in domElement)
-    {
+    for (const index in domElement) { 
       callbacks[index] = {};
       callbacks[index].func = functionCallback[index]; 
     }
-    for (const index in domElement)
-    {
-      $(domElement[index]).off(eventName).on(eventName, (e) => {callbacks[index].func(e)});
+    for (const index in domElement) { $(domElement[index]).off(eventName).on(eventName, (e) => {callbacks[index].func(e)});
     }
   }
 }
