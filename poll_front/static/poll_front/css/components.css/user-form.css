@@ -20,6 +20,7 @@ form#user-form>fieldset {
     border: transparent;
     width: fit-content;
     margin: 0 auto;
+    margin-top: -0.5rem
 }
 
 form#user-form>fieldset>div.input_container {
@@ -42,7 +43,7 @@ form#user-form div.input_container>label {
 form#user-form div.input_container>input {
     border-radius: 0.3rem;
     font-family: Prompt;
-    font-size: 1rem;
+    font-size: 0.9rem;
     padding: 0.2rem 0.4rem;
     outline: none;
     background-color: antiquewhite;

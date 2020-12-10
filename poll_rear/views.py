@@ -12,47 +12,27 @@ class QuestionsFetch(View):
     template_name = 'poll_front/poll-module.html'
 
     def get(self, request, *args, **kwargs):
-        questions = Question.objects.all()
+        questions = Question.objects.order_by('-sort')
+        questions_dict = dict()
         questions_arr = list()
         question_tup = tuple()
         context = {
             'questions': questions
         }
 
+        print(questions)
+
         for a_question in questions:
-            question_tup = tuple(
-                [
-                    a_question.pk, tuple(
-                        [
-                            tuple(
-                                ["text", a_question.question_text]
-                            ),
-                            tuple(
-                                ["id", a_question.pk]
-                            ),
-                            tuple(
-                                ["sort", a_question.sort]
-                            )
-                        ]
-                    )
-                ]
-            )
-            questions_arr.append(question_tup)
-
-        question_keys = dict()
-        i = 0
-        for keypk, data in questions_arr:
-            question_keys[keypk] = list()
-            for subkey in data:
-                question_keys[keypk].append({
-                    subkey[0]: subkey[1]
-                })
-
-            question_keys[keypk] = {**question_keys[keypk][0], **
-                                    question_keys[keypk][1], **question_keys[keypk][2]}
+            questions_dict.update({
+                a_question.id: {
+                    "text": a_question.question_text,
+                    "sort": a_question.sort,
+                    "id": a_question.id
+                }
+            })
 
         return JsonResponse({
-            'questions': question_keys
+            'questions': questions_dict
         })
 
 
@@ -74,7 +54,7 @@ class Misc(object):
 
     vicinity_question = "Do you consider your hometown as rural or urban vicinity?"
 
-    farewell_message = """Hey guys thanks for joining us, see you again soon, maybe. Goodbye"""
+    farewell_message = """Hey man, you have reached the end, thanks for joining us, see you again soon, maybe. Goodbye"""
 
     class VicinityQuestion(View):
         template_name = "poll_rear/misc/misc-question.html"
@@ -91,5 +71,15 @@ class Misc(object):
             )
 
     class FarewellMsg(View):
+        template_name = "poll_rear/misc/farewell-goodbye.html"
+
         def get(self, request, *args, **kwargs):
-            return HttpResponse(content=Misc.farewell_message, status=200)
+
+            context = {'message': Misc.farewell_message}
+
+            return render(
+                request,
+                self.template_name,
+                context,
+                status=200
+            )
