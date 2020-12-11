@@ -49,7 +49,7 @@ div#question_text>span {
 div#question_text:hover>span {
     background-color: var(--color-one);
     color: var(--color-two);
-    transform: scale(1.05);
+    transform: scale(1.02);
     cursor: default;
 }
 
