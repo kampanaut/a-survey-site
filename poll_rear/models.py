@@ -24,7 +24,7 @@ class Participant(models.Model):
     )
 
     def __str__(self):
-        return self.first_name + " " + self.last_name
+        return f"[{self.pk}] {self.first_name} {self.last_name}"
 
 
 class Question(models.Model):
@@ -37,21 +37,10 @@ class Question(models.Model):
     sort = models.IntegerField(blank=False, null=False)
 
     def __str__(self):
-        return self.question_text
+        return f"[{self.pk}] -> #{self.sort} {self.question_text}"
 
 
 class Answer(models.Model):
-    # class AnswerChoices(models.IntegerChoices):
-    #     STRONGLY_DISAGREE = 1
-    #     DISAGREE = 2
-    #     UNDECIDED = 3
-    #     AGREE = 4
-    #     STRONGLY_AGREE = 5
-    # answer = models.IntegerField(
-    #     choices=AnswerChoices.choices,
-    #     null=False,
-    #     blank=True,
-    # )
 
     participant = models.ForeignKey(
         Participant,
@@ -71,4 +60,4 @@ class Answer(models.Model):
     )
 
     def __str__(self):
-        return f"({self.pk}) -- {self.participant.first_name} {self.participant.last_name} [{self.participant.pk}] >> {self.question.question_text} [{self.question.pk}] => \"{self.answer[:25]}\""
+        return f"[{self.pk}] --> {self.participant.first_name} {self.participant.last_name} ({self.participant.pk}) >> {self.question.question_text} ({self.question.pk}) => \"{self.answer[:25]}\""
