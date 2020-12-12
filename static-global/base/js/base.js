@@ -79,7 +79,7 @@ const api_post_create = ({api_link = [""], post_req, accept, csrftoken}) => {
     credentials: "same-origin", 
     headers: {
       Accept: accept,
-      'X-Requested-With': 'XMLHttpRequest', //Necessary to work with request.is_ajax()
+      'X-Requested-With': 'XMLHttpRequest', 
       'X-CSRFToken': csrftoken,
     }, 
     body: JSON.stringify({

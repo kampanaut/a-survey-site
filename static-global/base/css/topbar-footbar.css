@@ -27,15 +27,21 @@ div.block-grid>section.website-name {
     height: fit-content;
 }
 
-@media only screen and (max-width:255px) {
-    section.topbar {
-        width: 255px;
-    }
-}
-
 @media only screen and (max-width: 328px) {
     section.topbar {
         padding: 5px 10px;
         height: 4.7rem;
+    }
+}
+
+@media only screen and (max-width: 320px) {
+    section.topbar>*>section {
+        line-height: 1.3rem;
+    }
+}
+
+@media only screen and (max-width:255px) {
+    section.topbar {
+        width: 255px;
     }
 }

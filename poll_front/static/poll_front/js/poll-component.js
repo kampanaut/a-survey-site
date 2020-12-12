@@ -205,6 +205,7 @@ const initiate_survey = (questions_json = JSON) => {
 		}
 	};
 
+	//first code to run when the right navi button is clicked first time since site onload
 	const right_navigation_btn_start = (e) => {
 		console.log('%c--- NAVIGATION BUTTON CLICKED ---', 'color: #ffae17');
 		console.log('%cSTART TO QUESTION PANEL', 'color:#4fdf4f;');
@@ -224,6 +225,7 @@ const initiate_survey = (questions_json = JSON) => {
 		});
 	};
 
+	//the main shit, well in terms of question navigation shits
 	const right_navigation_btn_default = (e) => {
 		console.log('%cNEXT PANEL', 'color:#4fdf4f;');
 		if (user_form.in_use) {
@@ -245,6 +247,7 @@ const initiate_survey = (questions_json = JSON) => {
 		}
 	}
 
+	//the main shit also but does previous progression shit
 	const left_navigation_btn_default = (e) => {
 		console.log('%cPREV PANEL', 'color:#4bb6e0;');
 		if (user_form.in_use) {
@@ -257,8 +260,10 @@ const initiate_survey = (questions_json = JSON) => {
 		ans_snapshot();
 	}
 
+	//the endgame code for the right navi button. this is where it all comes together the submission shit.
 	const right_navigation_btn_end_panel = (e) => {
 		let isConfirmed = $(e.currentTarget).is('.confirmed');
+		let success_html = "";
 		if (isConfirmed)
 		{
 			const csrf = user_form.input_data.csrfmiddlewaretoken;
@@ -266,17 +271,40 @@ const initiate_survey = (questions_json = JSON) => {
 				answers: ask_w_answ_arr,
 				user_data: user_form.input_data
 			};
-			(async () => {
-				api_post_create({
-					api_link: [api.type.survey],
-					accept: api.accept.text,
-					csrftoken: csrf,
-					post_req: JSON.stringify(all_inputs)
-				})
-			})()
+			$('main.loading-lazy-wrapper').css({'display': 'block'});
+			$('section.modal-container').fadeIn(200, () => {
+				(async () => {
+					response = await api_post_create({
+						api_link: [api.type.survey],
+						accept: api.accept.text,
+						csrftoken: csrf,
+						post_req: JSON.stringify(all_inputs)
+					});
+					try {
+						success_html = await response.text();
+
+					} catch (err) {
+						console.log(err);
+					}
+					$(html_elems.poll_container_main).html(success_html);
+					$('div.poll-navi-btns_container').attr('show', 'false');
+					$('section.modal-container').fadeOut(200, () => {
+						$(html_elems.poll_header_container).css({
+							'transition': 'all 100ms ease-out',
+							'opacity': '0',
+							'transform': 'scale(0)'
+						});
+						$('main.loading-lazy-wrapper').css({'display': 'none'});
+						$(html_elems.farewell_panel_container).fadeOut(300, () => {
+							$('section.success-panel_wrapper').fadeIn(200);
+						});
+					});
+				})();
+			});
 		}
 	};
 
+	//the endgame code for the left navi button. this is where you decide if you should fucking revise shit over or just go "naahhh"
 	const left_navigation_btn_end_panel = (e) => {
 		$(html_elems.poll_header_container).html(panel_header_text[--curr_title]);
 		$('div.poll-navi-btns_container.right, div.poll-navi-btns_container').attr('state', 'review');
@@ -327,6 +355,8 @@ const initiate_survey = (questions_json = JSON) => {
 		$('div.poll-navi-btns_container.right').toggleClass('confirmed');
 	});
 };
+//don't mind this, this was the shsit for the likert-scale one. I thought that we ought to use that type until our teacher told us to do it like
+//an essay response. SO it do be like that.
 const survey_btn_listeners = () => {
 	$(' div.scale-items_container > input[type="button"]')
 		.on({

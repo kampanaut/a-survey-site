@@ -1,14 +1,19 @@
 @import "components.css/misc-question.css";
 @import "components.css/user-form.css";
 
+section#welcome-wrapper,
+section#question-wrapper {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
 section#welcome-wrapper {
     display: block;
-    width: 100%;
 }
 
 section#question-wrapper {
     display: none;
-    width: 100%;
 }
 
 /*==============
@@ -249,7 +254,7 @@ FAREWELL MESSAGE
 section.farewell-panel_container {
     height: 100%;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-around;
     padding: 2rem 3rem;
 }
 
@@ -303,6 +308,7 @@ div.proceed-notice-message_container {
     font-family: Muli;
     text-align: center;
     margin: 0.2rem 0;
+    padding: 0 0.2rem;
 }
 
 div.proceed-btn_wrapper {
@@ -373,12 +379,18 @@ SCREEN BREAKPOINTS
 
     div.farewell-message_text {
         font-size: 1rem;
+        line-height: 1.3rem;
+        padding: 0 0.7rem;
     }
 
     section.proceed-btn_container {
         max-width: 85%;
         width: 100%;
         margin: 0 auto;
+    }
+
+    div.proceed-notice-message_container {
+        font-size: 0.80rem;
     }
 
 }
@@ -406,14 +418,3 @@ SCREEN BREAKPOINTS
         margin: 0;
     }
 }
-
-/* @media only screen and (max-width: 328px) {
-    div.poll-navi-btns_container {
-        height: 2.4rem;
-        align-self: center;
-        justify-self: stretch;
-        transition-property: background-color;
-    }
-
-
-} */
