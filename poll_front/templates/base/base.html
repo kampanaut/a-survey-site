@@ -20,7 +20,11 @@
     {% include 'base/topbar.html' %} 
     <main class="main-content">
         <section class="modal-container">
-        
+            <main class="loading-lazy-wrapper">
+                <div class="loading-lazy-gif">
+                    <img src="{% static 'base/imgs/loading.gif' %}" alt="Loading Time!">
+                </div>
+            </main>
         </section>
         {% block content %}
         {% endblock content %}
