@@ -1,0 +1,28 @@
+{% if not error %}
+<div class="success-panel_wrapper">
+    <section class="success-panel_container">
+        <section class="success-text-header success">
+            Survey Submission Successful
+        </section>
+        <div class="success-msg-text">
+            Thank you <b>{{username.first_name}}</b> <b>{{username.last_name}}</b> for participating. This means that your submission is now saved on the server to be studied by us. Thank you for participating!
+        </div>
+    </section>
+</div>
+{% else %}
+<div class="success-panel_wrapper">
+    <section class="success-panel_container">
+        <section class="success-text-header error">
+            Survey Submission Successful
+        </section>
+        <div class="success-msg-text">
+            Oh boy! There was an error! I'm sorry! This means that you'll either repeat the survey again and just waste your time because of my incompetent coding of this one amateur dev or just head off, make something useful out of yourself. It's up to you!<br><br>
+
+            <div>
+                [ERROR]<br>
+                {{error_cause}}
+            </div>
+        </div>
+    </section>
+</div>
+{% endif %}

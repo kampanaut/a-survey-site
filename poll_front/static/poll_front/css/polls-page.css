@@ -1,4 +1,6 @@
 @import 'polls-module.css';
+@import 'startend-msg-panel.css';
+@import 'success-msg-panel.css';
 
 /*=============================
 
@@ -10,6 +12,7 @@ main.poll-site-content_main {
     width: 90vw;
     /* height: 22rem; */
     display: flex;
+    max-width: 870px;
     flex-direction: column;
     align-items: center;
 }
@@ -20,26 +23,10 @@ section.modal-container {
 }
 
 section.poll-container_base {
+    width: 100%;
     display: flex;
 }
 
-@media only screen and (min-width: 930px) {
-    main.poll-container_base {
-        width: 784px;
-        margin: auto;
-    }
-}
-
-@media only screen and (max-width:328px) {
-    section.poll-container_base {
-        display: grid;
-        grid-template-areas: "module module"
-            "btn-left btn-right";
-        grid-template-rows: auto 2.7rem;
-        column-gap: 0.5rem;
-        row-gap: 0.2rem;
-    }
-}
 
 /*==============================
 
@@ -52,7 +39,7 @@ section.poll-container_header {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 3.8rem;
+    min-height: 3.8rem;
     width: 100%;
 }
 
@@ -60,6 +47,8 @@ section.poll-container_header>div {
     font-family: 'Monsterrat';
     color: var(--color-two);
     font-size: 2rem;
+    line-height: 1.8rem;
+    text-align: center;
 }
 
 main.poll-container_main {
@@ -69,6 +58,7 @@ main.poll-container_main {
     border: 0.3rem solid var(--color-two);
     min-height: 15.8rem;
     grid-area: module;
+    width: 100%;
 }
 
 @media only screen and (max-width: 255px) {
@@ -86,15 +76,14 @@ main.poll-container_main {
     }
 }
 
-@media only screen and (min-width: 930px) {
-    main.poll-container_main {
-        min-width: 784px;
-        margin: 0;
-    }
-}
-
-@media only screen and (min-width: 1021px) {
-    main.poll-container_base {
-        min-width: 920px;
+@media only screen and (max-width:320px) {
+    section.poll-container_base {
+        display: grid;
+        grid-template-areas: "module module"
+            "btn-left btn-right";
+        grid-template-rows: auto 2.7rem;
+        grid-template-columns: 50%;
+        column-gap: 0.5rem;
+        row-gap: 0.2rem;
     }
 }
