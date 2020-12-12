@@ -7,9 +7,10 @@ const api = {
   type: {
     question: "questions",
     message: "messages",
-    user: "users",
+    user: "participants",
     answer: "answers",
     misc: "misc",
+    survey: 'survey',
   },
   subtype: {
     form: "form",
@@ -21,20 +22,20 @@ const api = {
   },
 };
 
-const refreshListeners = ({ domElement=[""], event: eventName=[""], functionCallback=[(e)=>e], localCallback=(e=>e) }) => {
+const refreshListeners = ({ domElement=[""], event: eventName=[""], newFuncCallback=[(e)=>e], localCallback=(e=>e) }) => {
   if (Array.isArray(eventName)) eventName = eventName.join(", ")
-  $(domElement).off(eventName)
   let callbacks = {};
   if (!Array.isArray(domElement)) 
   {
-    throw "Not an Array is given Argument to function, refreshListeners!"
-    domElement = domElement.join(", ");
+    $(domElement).off(eventName)
+    localCallback();
+    $(domElement).on(eventName, (e) => { newFuncCallback(e) }) 
   }
   else
   {
     for (const index in domElement) { 
       callbacks[index] = {};
-      callbacks[index].func = functionCallback[index]; 
+      callbacks[index].func = newFuncCallback[index]; 
     }
     for (const index in domElement) { $(domElement[index]).off(eventName) };
 
@@ -68,4 +69,21 @@ const api_post_req = ({ api_type, post_req, accept }) => {
     },
     body: post_req,
   });
+};
+
+const api_post_create = ({api_link = [""], post_req, accept, csrftoken}) => {
+  if (Array.isArray(api_link)) api_link = api_link.join("/");
+  else api_link = [api_link];
+  return fetch(`${api.api_root}/${api_link}/create`, {
+    method: "POST",
+    credentials: "same-origin", 
+    headers: {
+      Accept: accept,
+      'X-Requested-With': 'XMLHttpRequest', //Necessary to work with request.is_ajax()
+      'X-CSRFToken': csrftoken,
+    }, 
+    body: JSON.stringify({
+      post_req
+    })
+  })
 };

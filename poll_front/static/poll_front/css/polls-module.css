@@ -1,6 +1,16 @@
 @import "components.css/misc-question.css";
 @import "components.css/user-form.css";
 
+section#welcome-wrapper {
+    display: block;
+    width: 100%;
+}
+
+section#question-wrapper {
+    display: none;
+    width: 100%;
+}
+
 /*==============
 HIDE ALL TEXT AFTER LAST QUESTION SURVEY SUBMISSION
 ==============*/
@@ -138,7 +148,7 @@ fieldset>textarea#id_answer {
     border: 0.15rem solid transparent;
     font-family: Prompt, 'Times New Roman', Times, serif;
     resize: none;
-    max-width: 65vw;
+    /* max-width: 65vw; */
     min-width: 70%;
     transition: 120ms ease-out;
     transition-property: background-color tranform border-color color;
@@ -146,6 +156,7 @@ fieldset>textarea#id_answer {
     padding: 0.2rem 0.4rem;
     font-size: 0.8rem;
     letter-spacing: 0.5px;
+    white-space: pre-line;
 }
 
 fieldset>textarea#id_answer.pulse {
@@ -175,66 +186,6 @@ fieldset>textarea#id_answer:focus::placeholder {
     opacity: 1;
 }
 
-@media only screen and (min-width: 775px) {
-    section.answert-choice_container {
-        min-width: 635px;
-        margin-left: auto;
-        margin-right: auto;
-        padding: 0rem 1rem;
-    }
-
-    fieldset>textarea#id_answer {
-        min-width: 570px;
-    }
-
-    div.question-item-info.sort {
-        padding-left: 1rem;
-    }
-
-    div.question-item-info.total {
-        padding-right: 1rem;
-    }
-
-    form#qualit-answer>fieldset {
-        min-width: 610px;
-        margin: 0rem auto;
-    }
-
-    hr.break-line {
-        width: 98%;
-    }
-}
-
-@media only screen and (max-width: 590px) and (min-width: 474px) {
-    fieldset>textarea#id_answer {
-        max-width: 67vw;
-        min-width: 300px;
-    }
-}
-
-@media only screen and (min-width: 930px) {
-    hr.break-line {
-        width: 94%;
-    }
-}
-
-@media only screen and (max-width: 590px) and (min-width: 474px) {
-    hr.break-line {
-        width: 93%;
-    }
-}
-
-@media only screen and (max-width: 474px) {
-    hr.break-line {
-        width: 91%;
-    }
-}
-
-@media only screen and (max-width: 328px) {
-    fieldset>textarea#id_answer {
-        letter-spacing: 0.2px;
-    }
-}
 
 /*===================
 POLL NAVIGATION
@@ -291,28 +242,6 @@ div.poll-navi-btns_container.left:hover {
     background-color: rgb(64, 116, 138);
 }
 
-@media only screen and (max-width: 328px) {
-    div.poll-navi-btns_container {
-        height: 2.4rem;
-        align-self: center;
-        justify-self: stretch;
-        transition-property: background-color;
-    }
-
-    div.poll-navi-btns_container.left {
-        justify-content: start;
-        width: 100%;
-        margin: 0;
-    }
-
-    div.poll-navi-btns_container.right {
-        justify-content: flex-end;
-        width: 100%;
-        margin: 0;
-    }
-}
-
-
 /*===================
 FAREWELL MESSAGE
 ====================*/
@@ -321,7 +250,7 @@ section.farewell-panel_container {
     height: 100%;
     flex-direction: column;
     justify-content: space-between;
-    padding: 2.5rem 0.7rem;
+    padding: 2rem 3rem;
 }
 
 section.farewell-message_container {
@@ -340,6 +269,7 @@ section.farewell-message_container {
 div.farewell-message_text {
     font-size: 1.25rem;
     text-align: center;
+    line-height: 1.3rem;
     width: 95%;
 }
 
@@ -358,20 +288,9 @@ section.proceed-btn_container {
     align-items: center;
     background-color: var(--primary-color);
     border-radius: 0.2rem;
-    margin: 0.4rem 0.2rem 0;
-    min-height: 9rem;
-}
-
-@media only screen and (max-width: 328px) {
-    section.proceed-btn_container {
-        margin-top: 1.4rem;
-    }
-}
-
-@media only screen and (max-width: 380px) {
-    div.proceed-btn_wrapper {
-        margin: 0.7rem 0 0;
-    }
+    margin: 2rem auto 0;
+    min-height: 8rem;
+    width: 70%;
 }
 
 div.proceed-btn_box {
@@ -391,7 +310,7 @@ div.proceed-btn_wrapper {
     justify-content: center;
     align-items: center;
     height: 100%;
-    margin: 1.2rem 0 0;
+    margin: 0.8rem 0 0;
 }
 
 label.confirm-btn-wrapper {
@@ -442,3 +361,59 @@ input#confirm-check:checked+span.confirm-btn {
 input#confirm-check:checked+span.confirm-btn:before {
     background-color: var(--primary-color);
 }
+
+/*===================
+SCREEN BREAKPOINTS
+====================*/
+
+@media only screen and (max-width: 730px) {
+    section.farewell-panel_container {
+        padding: 2rem 1.1rem;
+    }
+
+    div.farewell-message_text {
+        font-size: 1rem;
+    }
+
+    section.proceed-btn_container {
+        max-width: 85%;
+        width: 100%;
+        margin: 0 auto;
+    }
+
+}
+
+@media only screen and (max-width: 320px) {
+    div.poll-container_base.end {
+        display: flex;
+    }
+
+    div.poll-navi-btns_container {
+        height: 2.4rem;
+        justify-self: stretch;
+        align-items: center;
+    }
+
+    div.poll-navi-btns_container.left {
+        justify-content: start;
+        width: 100%;
+        margin: 0;
+    }
+
+    div.poll-navi-btns_container.right {
+        justify-content: flex-end;
+        width: 100%;
+        margin: 0;
+    }
+}
+
+/* @media only screen and (max-width: 328px) {
+    div.poll-navi-btns_container {
+        height: 2.4rem;
+        align-self: center;
+        justify-self: stretch;
+        transition-property: background-color;
+    }
+
+
+} */

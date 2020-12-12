@@ -114,7 +114,6 @@ const load_polls = async () => {
 		accept: api.accept.json,
 	});
 	data = await response.json();
-	console.log(data);
 	data = data.questions;
 	try {
 		initiate_survey(sort({
@@ -130,11 +129,15 @@ const load_polls = async () => {
 $(document).ready(() => {
 	const promise = new Promise((resolve, reject) => {
 		$.getScript(`${urls.static}poll_front/js/polls-feed.js`, function (script) {
-			initiate_poll_feed();
-			resolve(200);
+			if(initiate_poll_feed())
+				resolve(200);
+			else
+				reject("Already Submitted");
 		});
 	});
 	promise.then((response) => {
 		load_polls();
+	}).catch(reason => {
+		console.log(reason);
 	});
 });

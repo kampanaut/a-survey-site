@@ -8,20 +8,64 @@
 Research | Survey
 {% endblock title %}
 {% block content %}
+{% if not is_visited %}
 <main class="poll-site-content_main">
-    <section class="poll-container_header">
-        <div>Questionnaire</div>
+    <section id="question-wrapper">
+        <section class="poll-container_header">
+            <div>Questionnaire</div>
+        </section>
+        <section class="poll-container_base">
+            <div class="poll-navi-btns_container left" show="false">
+                <svg class="poll-navi-btn left" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><path d="M31.7 239l136-136c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9L127.9 256l96.4 96.4c9.4 9.4 9.4 24.6 0 33.9L201.7 409c-9.4 9.4-24.6 9.4-33.9 0l-136-136c-9.5-9.4-9.5-24.6-.1-34z"/></svg>
+            </div>
+            <main class="poll-container_main">
+                {% include 'poll_front/poll-module.html' %}
+            </main>
+            <div class="poll-navi-btns_container right" show="true">
+                <svg class="poll-navi-btn right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><path d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z"/></svg>
+            </div>
+        </section>
     </section>
-    <section class="poll-container_base">
-        <div class="poll-navi-btns_container left" show="false">
-            <svg class="poll-navi-btn left" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><path d="M31.7 239l136-136c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9L127.9 256l96.4 96.4c9.4 9.4 9.4 24.6 0 33.9L201.7 409c-9.4 9.4-24.6 9.4-33.9 0l-136-136c-9.5-9.4-9.5-24.6-.1-34z"/></svg>
-        </div>
-        <main class="poll-container_main">
-            {% include 'poll_front/poll-module.html' %}
-        </main>
-        <div class="poll-navi-btns_container right" show="true">
-            <svg class="poll-navi-btn right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><path d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z"/></svg>
-        </div>
+    <section id="welcome-wrapper">
+        <section class="poll-container_header intro">
+            <div><span>WELCOME TO</span> <span>THE SURVEY</span></div>
+        </section>
+        <section class="poll-container_base">
+            <main class="poll-container_main">
+                <section class="message-notice_wrapper start">
+                    <div class="all-content-message_container start">
+                        <img id="site-logo-img" src="{% static 'base/imgs/favicon.ico' %}" alt="Survey Site Logo">
+                        <section class="message-text_container start">
+                            <div class="text">
+                                <h1>Welcome!</h1>
+                                <p>Today we are going to do some survey shits! Yahay!</p>
+                            </div>
+                        </section>
+                    </div>
+                </section>
+            </main>
+            <div class="poll-navi-btns_container right" show="true">
+                <svg class="poll-navi-btn right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><path d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z"/></svg>
+            </div>
+        </section>
     </section>
 </main>
+{% else %}
+<main class="poll-site-content_main">
+    <section class="poll-container_base.end">
+        <main class="poll-container_main">
+            <section class="message-notice_wrapper end">
+                <div class="all-content-message_container end">
+                    <img id="site-logo-img" src="{% static 'base/imgs/favicon.ico' %}" alt="Survey Site Logo">
+                    <section class="message-text_container end">
+                        <div class="text">
+                            It seems like you had already <b>submitted</b> the survey. We advice you to get out or the NSA will track you to <b>death</b>.
+                        </div>
+                    </section>
+                </div>
+            </section>
+        </main>
+    </section>
+</main>
+{% endif %}
 {% endblock content %}

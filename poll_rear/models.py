@@ -63,12 +63,12 @@ class Answer(models.Model):
         related_name="answers",
         on_delete=models.CASCADE,
     )
-    answer = models.CharField(
+    answer = models.TextField(
         'Answer',
-        max_length=700,
+        max_length=50000,
         null=False,
         blank=False
     )
 
     def __str__(self):
-        return f"{self.participant.first_name} {self.participant.last_name} >> {self.question.question_text} => ({self.answer})"
+        return f"({self.pk}) -- {self.participant.first_name} {self.participant.last_name} [{self.participant.pk}] >> {self.question.question_text} [{self.question.pk}] => \"{self.answer[:25]}\""

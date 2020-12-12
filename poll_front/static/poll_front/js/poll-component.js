@@ -1,4 +1,4 @@
-let cur_question_item = 0;
+let curr_question_item = 0;
 let cur_question_key = 0;
 
 const html_elems = {
@@ -6,7 +6,17 @@ const html_elems = {
 	poll_container_main: $('main.poll-container_main')[0],
 	user_form_container: 'section.user-form_container',
 	farewell_panel_container: 'section.farewell-panel_container',
+	poll_header_container: $("section.poll-container_header>div")[0],
 };
+
+
+const panel_header_text = [
+	'Questionnaire',
+	'Enter General Information', 
+	'All Set!'
+];
+
+let curr_title = 0;
 
 const poll_component = () => {};
 
@@ -20,7 +30,7 @@ const print_data = (question_text) => {
 
 //INITIATES ALL OF THE CORE FUNCTIONS OF THE POLL SURVEY FUNCTIONALITY
 const initiate_survey = (questions_json = JSON) => {
-	cur_question_item = Object.keys(questions_json)[cur_question_key];
+	curr_question_item = Object.keys(questions_json)[cur_question_key];
 	const ask_w_answ_arr = {};
 	let answer = '';
 	let user_form = {
@@ -35,7 +45,7 @@ const initiate_survey = (questions_json = JSON) => {
 	const question_total = Object.keys(questions_json).length;
 	const last_id_key = Object.keys(questions_json)[question_total - 1];
 
-	print_data(questions_json[cur_question_item]);
+	print_data(questions_json[curr_question_item]);
 
 	//Assign TOTAL QUESTIONS
 	$('div.question-item-info.total>span').html(`total items: <span>${question_total}</span>`);
@@ -55,13 +65,13 @@ const initiate_survey = (questions_json = JSON) => {
 		console.log(
 			`%cLatest question ID saved inside:`,
 			'color: #f27100; background-color: #1c1c1c; font-weight: bold;',
-			ask_w_answ_arr[cur_question_item].id
+			ask_w_answ_arr[curr_question_item].id
 		);
 	};
 
 	//A function that puts the previous answer saved from the global stack to the textarea input
 	const ans_snapshot = () => {
-		$('textarea#id_answer').val(ask_w_answ_arr[cur_question_item].answ.replace(/(%20)/g, ' '));
+		$('textarea#id_answer').val(ask_w_answ_arr[curr_question_item].answ.replace(/(%20)/g, ' '));
 	};
 
 	//A function that shows the user form
@@ -76,8 +86,8 @@ const initiate_survey = (questions_json = JSON) => {
 			user_form.requested = true;
 			setTimeout(() => {
 				$(html_elems.poll_container_main).addClass('is-user-form').css({ 'min-height': height }).append(`
-          <section class="user-form_container" style="opacity:0">${html} </section>
-          `);
+					<section class="user-form_container" style="opacity:0">${html} </section>
+				`);
 				$('form#user-form').css({ height: `calc(${height} - 0.6rem)` });
 				setTimeout(() => {
 					$('section.user-form_container').css({
@@ -150,10 +160,11 @@ const initiate_survey = (questions_json = JSON) => {
 		} else if (flow === 'next') {
 			if (user_form.input_data.first_name && user_form.input_data.last_name && user_form.input_data.birthday) {
 				end_panel.in_use = true;
+				$(html_elems.poll_header_container).text(panel_header_text[++curr_title]);
 				refreshListeners({
 					domElement: ['div.poll-navi-btns_container.right', 'div.poll-navi-btns_container.left'],
 					event: 'click',
-					functionCallback: [right_navigation_btn_end_panel, left_navigation_btn_end_panel]
+					newFuncCallback: [right_navigation_btn_end_panel, left_navigation_btn_end_panel]
 				});
 				console.log('Hiding User Form');
 				if (!end_panel.requested)
@@ -194,6 +205,25 @@ const initiate_survey = (questions_json = JSON) => {
 		}
 	};
 
+	const right_navigation_btn_start = (e) => {
+		console.log('%c--- NAVIGATION BUTTON CLICKED ---', 'color: #ffae17');
+		console.log('%cSTART TO QUESTION PANEL', 'color:#4fdf4f;');
+		$('section#welcome-wrapper').fadeOut(400, (e) => {
+			setTimeout(() => {
+				$('section#question-wrapper').fadeIn(200)
+			}, 400)
+		});
+		refreshListeners({
+			domElement: 'div.poll-navi-btns_container.right',
+			event: 'click',
+			newFuncCallback: right_navigation_btn_default,
+			localCallback: () => {
+				$('div.poll-navi-btns_container').click((e) => { all_navi_btns_default(e) });
+				$('div.poll-navi-btns_container.left').click((e) => left_navigation_btn_default(e));
+			}
+		});
+	};
+
 	const right_navigation_btn_default = (e) => {
 		console.log('%cNEXT PANEL', 'color:#4fdf4f;');
 		if (user_form.in_use) {
@@ -201,12 +231,15 @@ const initiate_survey = (questions_json = JSON) => {
 			answer = undefined;
 		}
 		if (answer) {
-			if (cur_question_item != last_id_key) {
-				cur_question_item = Object.keys(questions_json)[++cur_question_key];
-				print_data(ask_w_answ_arr[cur_question_item] ? ask_w_answ_arr[cur_question_item] : questions_json[cur_question_item]);
-				if (ask_w_answ_arr[cur_question_item]) ans_snapshot();
+			if (curr_question_item != last_id_key) {
+				curr_question_item = Object.keys(questions_json)[++cur_question_key];
+				print_data(ask_w_answ_arr[curr_question_item] ? ask_w_answ_arr[curr_question_item] : questions_json[curr_question_item]);
+				if (ask_w_answ_arr[curr_question_item]) {
+					ans_snapshot();
+				}
 			} else {
 				console.log('Using User Form');
+				$(html_elems.poll_header_container).text(panel_header_text[++curr_title]);
 				user_data_form_show();
 			}
 		}
@@ -215,25 +248,42 @@ const initiate_survey = (questions_json = JSON) => {
 	const left_navigation_btn_default = (e) => {
 		console.log('%cPREV PANEL', 'color:#4bb6e0;');
 		if (user_form.in_use) {
+			$(html_elems.poll_header_container).html(panel_header_text[--curr_title]);
 			user_data_form_hide('prev');
 		} else {
-			cur_question_item = Object.keys(questions_json)[--cur_question_key];
-			print_data(ask_w_answ_arr[cur_question_item] ? ask_w_answ_arr[cur_question_item] : questions_json[cur_question_item]);
+			curr_question_item = Object.keys(questions_json)[--cur_question_key];
+			print_data(ask_w_answ_arr[curr_question_item] ? ask_w_answ_arr[curr_question_item] : questions_json[curr_question_item]);
 		}
-		if (ask_w_answ_arr[cur_question_item]) ans_snapshot();
+		ans_snapshot();
 	}
 
 	const right_navigation_btn_end_panel = (e) => {
 		let isConfirmed = $(e.currentTarget).is('.confirmed');
-		console.log(isConfirmed);
+		if (isConfirmed)
+		{
+			const csrf = user_form.input_data.csrfmiddlewaretoken;
+			const all_inputs = {
+				answers: ask_w_answ_arr,
+				user_data: user_form.input_data
+			};
+			(async () => {
+				api_post_create({
+					api_link: [api.type.survey],
+					accept: api.accept.text,
+					csrftoken: csrf,
+					post_req: JSON.stringify(all_inputs)
+				})
+			})()
+		}
 	};
 
 	const left_navigation_btn_end_panel = (e) => {
+		$(html_elems.poll_header_container).html(panel_header_text[--curr_title]);
 		$('div.poll-navi-btns_container.right, div.poll-navi-btns_container').attr('state', 'review');
 		refreshListeners({
 			domElement: ['div.poll-navi-btns_container.right', 'div.poll-navi-btns_container.left'],
 			event: 'click',
-			functionCallback: [right_navigation_btn_default, left_navigation_btn_default],
+			newFuncCallback: [right_navigation_btn_default, left_navigation_btn_default],
 			localCallback: () => {
 				$('div.poll-navi-btns_container').click((e) => { all_navi_btns_default(e) });
 			}
@@ -242,9 +292,9 @@ const initiate_survey = (questions_json = JSON) => {
 	};
 
 	const all_navi_btns_default = (e) => {
-		console.log('%cNAVIGATION BUTTON CLICKED', 'color: #ffae17');
+		console.log('%c--- NAVIGATION BUTTON CLICKED ---', 'color: #ffae17');
 		if (!user_form.in_use) {
-			submit_poll(cur_question_item);
+			submit_poll(curr_question_item);
 		}
 		else {
 			user_form.input_data = {
@@ -268,14 +318,10 @@ const initiate_survey = (questions_json = JSON) => {
 		}
 	};
 
-	//Event listeners for the two buttons in order to navigate between panels of question and forms
-	$('div.poll-navi-btns_container').click((e) => { all_navi_btns_default(e) });
-
 	//Event listener specifically for the right side button, the NEXT button
-	$('div.poll-navi-btns_container.right:not([state="submit"])').click((e) => right_navigation_btn_default(e));
+	$('div.poll-navi-btns_container.right').click((e) => right_navigation_btn_start(e));
 
 	//Event listener specifically for the left side button, the PREV button
-	$('div.poll-navi-btns_container.left:not([state="submit"])').click((e) => left_navigation_btn_default(e));
 
 	$('main.poll-container_main').on('click', 'div.proceed-btn_wrapper>label>span.confirm-btn', (e) => {
 		$('div.poll-navi-btns_container.right').toggleClass('confirmed');
