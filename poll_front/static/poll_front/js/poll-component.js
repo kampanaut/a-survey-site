@@ -21,7 +21,7 @@ let curr_title = 0;
 const poll_component = () => {};
 
 //PRINTS THE QUESTION TEXT THE QUESTION CONTAINER ELEMENT
-const print_data = (question_text) => {
+const print_question = (question_text) => {
 	console.log('%cPrinted the Question: ', 'color: #ffae17', question_text);
 	$('div#question_text>span').html(question_text.text);
 	$('div.question-item-info.sort>span').html(`item no. <span>${cur_question_key + 1}</span>`);
@@ -45,7 +45,7 @@ const initiate_survey = (questions_json = JSON) => {
 	const question_total = Object.keys(questions_json).length;
 	const last_id_key = Object.keys(questions_json)[question_total - 1];
 
-	print_data(questions_json[curr_question_item]);
+	print_question(questions_json[curr_question_item]);
 
 	//Assign TOTAL QUESTIONS
 	$('div.question-item-info.total>span').html(`total items: <span>${question_total}</span>`);
@@ -235,7 +235,7 @@ const initiate_survey = (questions_json = JSON) => {
 		if (answer) {
 			if (curr_question_item != last_id_key) {
 				curr_question_item = Object.keys(questions_json)[++cur_question_key];
-				print_data(ask_w_answ_arr[curr_question_item] ? ask_w_answ_arr[curr_question_item] : questions_json[curr_question_item]);
+				print_question(ask_w_answ_arr[curr_question_item] ? ask_w_answ_arr[curr_question_item] : questions_json[curr_question_item]);
 				if (ask_w_answ_arr[curr_question_item]) {
 					ans_snapshot();
 				}
@@ -255,7 +255,7 @@ const initiate_survey = (questions_json = JSON) => {
 			user_data_form_hide('prev');
 		} else {
 			curr_question_item = Object.keys(questions_json)[--cur_question_key];
-			print_data(ask_w_answ_arr[curr_question_item] ? ask_w_answ_arr[curr_question_item] : questions_json[curr_question_item]);
+			print_question(ask_w_answ_arr[curr_question_item] ? ask_w_answ_arr[curr_question_item] : questions_json[curr_question_item]);
 		}
 		ans_snapshot();
 	}
