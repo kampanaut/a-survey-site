@@ -179,10 +179,13 @@ const initiate_survey = (questions_json = JSON) => {
 						$(html_elems.poll_container_main).append(`
 								<section class="farewell-panel_container" style="opacity: 0; display:none">${html}</section>
 							`);
+						change_panel();
 					})();
 				}
+				else {
+					change_panel();
+				}
 				$('div.poll-navi-btns_container').attr('state', 'submit');
-				change_panel();
 				user_form.in_use = false;
 			} else {
 				console.log('%cIncomplete Form!', 'color:orangered');
