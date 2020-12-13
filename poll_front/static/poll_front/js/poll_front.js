@@ -76,6 +76,7 @@ const sort = ({
 			}
 			if (allLessThan) arr_objectData_sorted[uns_key] = data[arr.sorted.key[uns_key]];
 		}
+		if(!arr_objectData_sorted[arr.sorted.sort.length-2]) swapElements({firstElem: (arr.sorted.sort.length-2), endElem: (arr.sorted.sort.length-2)})
 	}
 	else 
 	{
@@ -89,7 +90,7 @@ const sort = ({
 			if (i == 1) array_stats.highest_num = 0;
 			else array_stats.lowest_num = (arr.unsorted.sort.length-1)
 		}
-		for (let uns_key = (arr.unsorted.sort.length - 2); uns_key > 2; --uns_key)
+		for (let uns_key = (arr.unsorted.sort.length - 2); uns_key > 1; --uns_key)
 		{
 			allLessThan = true
 			for (let check_key = (uns_key - 1); check_key > 0; --check_key)
