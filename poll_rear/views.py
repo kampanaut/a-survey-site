@@ -59,7 +59,7 @@ class CoreCRUD(object):
 
             def createParticipant(self):
                 user = Participant(
-                    first_name=self.User['first_name'], last_name=self.User['last_name'], birthday=self.User['birthday'])
+                    first_name=self.User['first_name'], last_name=self.User['last_name'], birthday=self.User['birthday'], sex=self.User['gender'])
                 try:
                     user.save()
                     self.User['id'] = user.id

@@ -28,6 +28,7 @@ form#user-form>fieldset>div.input_container {
     flex-direction: column;
     justify-content: start;
     align-items: left;
+    min-height: 3.5rem;
 }
 
 form#user-form>fieldset>div.input_container:not(:first-child) {
@@ -52,12 +53,55 @@ form#user-form div.input_container>input {
     width: 18rem;
 }
 
-form#user-form div.input_container.pulse>input[valid="true"] {
+/* SEX INPUT CONTAINER */
+
+div.sex-input>label {
+    text-align: center;
+}
+
+div.sex-input>fieldset {
+    margin-top: 0.2rem;
+    border: solid 0.1rem transparent;
+    display: grid;
+    grid-template-areas: "male female";
+    grid-template-columns: 1fr 1fr;
+    column-gap: 1rem;
+}
+
+div.input_container label>input[type="radio"] {
+    display: none;
+}
+
+div.sex-input label>div.sex-choice {
+    border-radius: 0.7rem;
+    color: var(--primary-color);
+    padding: 0.3rem 0.7rem;
+    transition: all 100ms ease-out;
+    cursor: pointer;
+}
+
+div.sex-input label:nth-child(1) {
+    justify-self: end;
+}
+
+div.sex-input label:nth-child(2) {
+    justify-self: start;
+}
+
+div.sex-input label>input[type="radio"]:checked+div.sex-choice {
+    transform: scale(1.05);
+    background-color: #b7dcb7;
+    color: #339d33
+}
+
+form#user-form div.input_container.pulse>input[not-valid="true"],
+form#user-form div.input_container.pulse>fieldset>label>input[not-valid="true"]+div {
     transform: scale(1.05);
     filter: brightness(1.2);
     /* background-color: #fb768e; */
 }
 
+div.sex-input label:hover div.sex-choice,
 form#user-form div.input_container>input:hover {
     transform: scale(1.05);
 }
@@ -76,3 +120,5 @@ form#user-form div.input_container>input:hover {
         margin-right: 1rem;
     }
 }
+
+@media only screen and (max-width: 320px) {}

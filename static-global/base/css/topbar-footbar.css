@@ -2,7 +2,7 @@ section.topbar {
     position: fixed;
     top: 0;
     width: 100vw;
-    height: 3.4rem;
+    min-height: 3.4rem;
     background-color: var(--secondary-color);
     border-bottom: 10px solid var(--color-two);
     z-index: 50;
@@ -23,7 +23,7 @@ div.block-grid>section.website-name {
     padding: 0.05rem;
     font-family: Monsterrat;
     color: var(--primary-color);
-    font-size: 1.3rem;
+    font-size: 1.7rem;
     height: fit-content;
 }
 
