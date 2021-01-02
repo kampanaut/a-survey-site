@@ -61,6 +61,12 @@ main.poll-container_main {
     width: 100%;
 }
 
+@media only screen and (max-height: 640px) {
+    main.main-content {
+        height: 105vh;
+    }
+}
+
 @media only screen and (max-width: 255px) {
     section.poll-container_header {
         width: 229px;
@@ -85,5 +91,16 @@ main.poll-container_main {
         grid-template-columns: 50%;
         column-gap: 0.5rem;
         row-gap: 0.2rem;
+    }
+}
+
+@media only screen and (max-width: 620px) {
+    main.poll-container_main {
+        min-height: 28rem;
+        grid-area: module;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
     }
 }

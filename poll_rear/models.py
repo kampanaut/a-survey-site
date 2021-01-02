@@ -4,10 +4,9 @@ from django.db import models
 
 
 class Participant(models.Model):
-    SEX_CHOICES = {
-        'M': 'MALE',
-        'F': 'FEMALE'
-    }
+    class Sex(models.TextChoices):
+        MALE = 'M', 'MALE'
+        FEMALE = 'F', 'FEMALE'
     first_name = models.CharField(
         'First Name',
         max_length=70,
@@ -28,7 +27,8 @@ class Participant(models.Model):
     )
     sex = models.CharField(
         max_length=2,
-        choices=SEX_CHOICES
+        choices=Sex.choices,
+        null=False
     )
 
     def __str__(self):

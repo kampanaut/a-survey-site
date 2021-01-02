@@ -158,7 +158,7 @@ const initiate_survey = (questions_json = JSON) => {
 			console.log('Hiding User Form');
 			change_panel();
 		} else if (flow === 'next') {
-			if (user_form.input_data.first_name && user_form.input_data.last_name && user_form.input_data.birthday) {
+			if (user_form.input_data.first_name && user_form.input_data.last_name && user_form.input_data.birthday && user_form.input_data.gender) {
 				end_panel.in_use = true;
 				$(html_elems.poll_header_container).text(panel_header_text[++curr_title]);
 				refreshListeners({
@@ -190,13 +190,23 @@ const initiate_survey = (questions_json = JSON) => {
 			} else {
 				console.log('%cIncomplete Form!', 'color:orangered');
 				$('form#user-form>fieldset>div.input_container').each(function (index, element) {
-					const child_elem = $(element).children('input');
+					const child_elem = $(element).find('input');
 					if (child_elem.val() === '') {
-						child_elem.attr('valid', 'true');
+						child_elem.attr('not-valid', 'true');
 					} else {
-						child_elem.removeAttr('valid');
+						child_elem.removeAttr('not-valid');
 					}
 				});
+				let sex_input_null = true;
+				$('form#user-form>fieldset>div.input_container>fieldset input[type="radio"]').each(function (index, element) {
+					if ($(element).is(":checked"))
+						sex_input_null = false;
+				});
+
+				if(sex_input_null)
+					$('form#user-form>fieldset>div.input_container>fieldset input[type="radio"]').attr('not-valid', 'true');
+				else
+					$('form#user-form>fieldset>div.input_container>fieldset input[type="radio"]').removeAttr('not-valid');
 				setTimeout(() => {
 					$('form#user-form>fieldset>div.input_container').removeClass('pulse');
 				}, 200);
@@ -332,6 +342,7 @@ const initiate_survey = (questions_json = JSON) => {
 				first_name: $('form#user-form>fieldset>div.first-name>input').val(),
 				last_name: $('form#user-form>fieldset>div.last-name>input').val(),
 				birthday: $('form#user-form>fieldset>div.birth-date>input').val(),
+				gender: $('form#user-form>fieldset input[name="sex"]:checked').val(),
 				csrfmiddlewaretoken: $('form#user-form>input').val(),
 			};
 			console.log(

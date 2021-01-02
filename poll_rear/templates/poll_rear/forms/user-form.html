@@ -12,6 +12,20 @@
             <label for="id_birtday">Birthday</label>
             <input type="date" name="birthday" id="id_birthday">
         </div>
+        <div class="sex-input input_container">
+            <label for="id_sex">Sex</label>
+            <fieldset>
+                <label for="id_male">
+                    <input type="radio" value="M" name="sex" id="id_male">
+                    <div class="sex-choice" id="male">MALE</div>
+                </label>
+                <label for="id_female">
+                    <input type="radio" value="F" name="sex" id="id_female">
+                    <div class="sex-choice" id="female">FEMALE</div>
+                </label>
+            </fieldset>
+        </div>
+
     </fieldset>
     {% csrf_token %}
 </form>
