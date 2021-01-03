@@ -16,6 +16,12 @@ const getCookie = (cookie) => {
 	}
 	return "";
 }
+const setCookie = (cookie_name, cookie_value, expiration_days) => {
+	let date = new Date();
+	date.setTime(date.getTime() + (expiration_days*24*60*60*1000));
+	let expiration_date = "expires=" + date.toUTCString();
+	document.cookie = `${cookie_name}=${cookie_value};${expiration_date};path=/`;
+}
 
 const initiate_poll_feed = () => {
 	if (getCookie('submitted') !== 'true')

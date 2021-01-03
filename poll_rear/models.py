@@ -20,7 +20,7 @@ class Participant(models.Model):
         blank=False,
     )
     birthday = models.DateField(
-        'Birth day',
+        'Birthday',
         blank=True,
         auto_now=False,
         auto_now_add=False
@@ -45,7 +45,7 @@ class Question(models.Model):
     sort = models.IntegerField(blank=False, null=False)
 
     def __str__(self):
-        return f"[{self.pk}] -> #{self.sort} {self.question_text}"
+        return f"{self.sort}. {self.question_text} [{self.pk}]"
 
 
 class Answer(models.Model):
@@ -68,4 +68,4 @@ class Answer(models.Model):
     )
 
     def __str__(self):
-        return f"[{self.pk}] --> {self.participant.first_name} {self.participant.last_name} ({self.participant.pk}) >> {self.question.question_text} ({self.question.pk}) => \"{self.answer[:25]}\""
+        return f"{self.participant.first_name} {self.participant.last_name} ({self.participant.pk}) -> {self.question.question_text} >> \"{ self.answer[:25] + '...' if len(self.answer) >= 25 else self.answer }\""

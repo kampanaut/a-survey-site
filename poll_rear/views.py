@@ -4,7 +4,6 @@ from .models import *
 from django.template.loader import render_to_string
 from django.http import HttpResponse, JsonResponse
 from poll_front.forms import *
-from django.utils.encoding import uri_to_iri
 import json
 
 # Create your views here.
@@ -54,6 +53,7 @@ class CoreCRUD(object):
     class Create(object):
 
         class SurveyCreate(View):
+            import urllib.parse as url
 
             success_template = 'poll_rear/misc/success-panel.html'
 
@@ -75,7 +75,7 @@ class CoreCRUD(object):
                     curr_ans = self.Answers[answ_key]
                     question = Question.objects.get(pk=curr_ans['id'])
                     answer = Answer(
-                        participant=user, question=question, answer=curr_ans['answ'].replace("%20", " ").replace("%0D%0A", "\n"))
+                        participant=user, question=question, answer=self.url.unquote(curr_ans['answ']))
                     try:
                         answer.save()
                     except Exception as err:
@@ -119,7 +119,7 @@ class Misc(object):
 
     vicinity_question = "Do you consider your hometown as rural or urban vicinity?"
 
-    farewell_message = """Hey man, you have reached the end, thanks for joining us, see you again soon, maybe. Goodbye"""
+    farewell_message = """Hey man, you have reached the end, thanks for joining us, see you again soon, maybe. Goodbye. Have a good time!"""
 
     class VicinityQuestion(View):
         template_name = "poll_rear/misc/misc-question.html"
