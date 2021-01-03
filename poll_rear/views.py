@@ -54,6 +54,7 @@ class CoreCRUD(object):
     class Create(object):
 
         class SurveyCreate(View):
+            import urllib.parse as url
 
             success_template = 'poll_rear/misc/success-panel.html'
 
@@ -75,7 +76,7 @@ class CoreCRUD(object):
                     curr_ans = self.Answers[answ_key]
                     question = Question.objects.get(pk=curr_ans['id'])
                     answer = Answer(
-                        participant=user, question=question, answer=curr_ans['answ'].replace("%20", " ").replace("%0D%0A", "\n"))
+                        participant=user, question=question, answer=self.url.unquote(curr_ans['answ']))
                     try:
                         answer.save()
                     except Exception as err:

@@ -68,4 +68,4 @@ class Answer(models.Model):
     )
 
     def __str__(self):
-        return f"[{self.pk}] --> {self.participant.first_name} {self.participant.last_name} ({self.participant.pk}) >> {self.question.question_text} ({self.question.pk}) => \"{self.answer[:25]}\""
+        return f"[{self.pk}] --> {self.participant.first_name} {self.participant.last_name} ({self.participant.pk}) >> {self.question.question_text} ({self.question.pk}) => \"{ self.answer[:25] + '...' if len(self.answer) >= 25 else self.answer }\""

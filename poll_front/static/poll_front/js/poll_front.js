@@ -121,10 +121,14 @@ const load_polls = async () => {
 			data: data,
 			sortby: 'sort',
 		}));
+		setCookie("reload_count", 0, 1)
 	}
 	catch (error) {
 		console.error(error);
-		alert("JS files fetch error.\nPlease reload page")
+		reload_count = getCookie("reload_count") | 0
+		setCookie("reload_count", Number(reload_count)+1, 1)
+		if (reload_count > 4) alert("JS files fetch error.\nPlease reload page")
+		location.reload();
 	}
 };
 $(document).ready(() => {
