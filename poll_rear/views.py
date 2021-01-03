@@ -4,7 +4,6 @@ from .models import *
 from django.template.loader import render_to_string
 from django.http import HttpResponse, JsonResponse
 from poll_front.forms import *
-from django.utils.encoding import uri_to_iri
 import json
 
 # Create your views here.
@@ -120,7 +119,7 @@ class Misc(object):
 
     vicinity_question = "Do you consider your hometown as rural or urban vicinity?"
 
-    farewell_message = """Hey man, you have reached the end, thanks for joining us, see you again soon, maybe. Goodbye"""
+    farewell_message = """Hey man, you have reached the end, thanks for joining us, see you again soon, maybe. Goodbye. Have a good time!"""
 
     class VicinityQuestion(View):
         template_name = "poll_rear/misc/misc-question.html"
