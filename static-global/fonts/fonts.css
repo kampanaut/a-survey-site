@@ -2,28 +2,39 @@
   font-family: 'PT Sans';
   src: url('PTSans-Regular.ttf');
 }
+
 @font-face {
   font-family: 'JosefinSlab';
   font-weight: 900;
-  src: url('JosefinSlab-SemiBold.ttf')
+  src: url('JosefinSlab-SemiBold.ttf');
 }
+
 @font-face {
   font-family: 'Monsterrat';
-  src: url('MontserratAlternates-Bold.ttf')
+  src: url('MontserratAlternates-Bold.ttf');
 }
+
 @font-face {
   font-family: 'RobotoSlab';
   src: url('RobotoSlab-ExtraBold.ttf');
 }
+
 @font-face {
   font-family: 'Prompt';
-  src: url('Prompt-Medium.ttf')
+  src: url('Prompt-Medium.ttf');
 }
+
 @font-face {
   font-family: 'Muli';
-  src: url('Muli-Bold.ttf')
+  src: url('Muli-Bold.ttf');
 }
+
 @font-face {
   font-family: 'Raleway';
-  src: url('Raleway-SemiBold.ttf')
+  src: url('Raleway-SemiBold.ttf');
+}
+
+@font-face {
+  font-family: 'Noah';
+  src: url('Noah-Regular.ttf');
 }

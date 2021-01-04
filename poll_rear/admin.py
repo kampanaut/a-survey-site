@@ -24,9 +24,9 @@ class QuestionAdminStyle(admin.ModelAdmin):
 
 
 class ParticipantAdminStyle(admin.ModelAdmin):
-    AdminStyleUtils.ParticipantStyle.combine_name.short_description = 'Name'
+    AdminStyleUtils.ParticipantStyle.combine_name.short_description = 'Full Name'
     list_display = (AdminStyleUtils.ParticipantStyle.combine_name,
-                    'birthday', 'sex', 'id')
+                    'last_name', "first_name", 'birthday', 'sex', 'date_created', 'id')
     fieldsets = ([
         ('Main Details', {
             'fields': [
