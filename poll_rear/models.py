@@ -36,7 +36,7 @@ class Participant(models.Model):
 
 
 class Question(models.Model):
-    question_text = models.CharField(
+    question_text = models.TextField(
         'Question Text',
         max_length=300,
         null=False,
