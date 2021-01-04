@@ -266,6 +266,10 @@ th {
     /* text-align: center; */
 }
 
+table#result_list thead th.column-date_created {
+    width: 70px;
+}
+
 /* div.results>table,
 nav#nav-sidebar table {
     border-collapse: separate;
