@@ -96,6 +96,8 @@ form ul.inline li {
     margin-top: 0;
     margin-bottom: 0;
     margin-left: 170px;
+    color: var(--primary-color-l);
+    filter: brightness(2.6);
 }
 
 .aligned ul label {
