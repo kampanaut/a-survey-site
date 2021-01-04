@@ -25,6 +25,12 @@ body {
 
 /* LINKS */
 
+ul.messagelist>li.success>a:link,
+ul.messagelist>li.success>a:visited {
+    color: var(--color-selected);
+    filter: brightness(0.7);
+}
+
 a:link,
 a:visited {
     color: var(--font-color);
