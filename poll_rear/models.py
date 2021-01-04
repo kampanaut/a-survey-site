@@ -4,6 +4,8 @@ from django.db import models
 
 
 class Participant(models.Model):
+    from datetime import datetime
+
     class Sex(models.TextChoices):
         MALE = 'M', 'MALE'
         FEMALE = 'F', 'FEMALE'
@@ -29,6 +31,13 @@ class Participant(models.Model):
         max_length=2,
         choices=Sex.choices,
         null=False
+    )
+    date_created = models.DateTimeField(
+        'Date Created | Submitted on',
+        auto_now_add=True,
+        # default=datetime.now(),
+        null=False,
+        blank=False
     )
 
     def __str__(self):
