@@ -33,11 +33,18 @@ class Participant(models.Model):
         null=False
     )
     date_created = models.DateTimeField(
-        'Date Created | Submitted on',
+        'Date Created | Date Submitted ',
         auto_now_add=True,
         # default=datetime.now(),
         null=False,
         blank=False
+    )
+
+    date_modified = models.DateTimeField(
+        'Date Modified',
+        auto_now=True,
+        null=False,
+        blank=False,
     )
 
     def __str__(self):
@@ -54,7 +61,7 @@ class Question(models.Model):
     sort = models.IntegerField(blank=False, null=False)
 
     def __str__(self):
-        return f"{self.sort}. {self.question_text} [{self.pk}]"
+        return f"{self.sort}. {self.question_text[:50] + '...' if len(self.question_text) > 50 else self.question_text } [{self.pk}]"
 
 
 class Answer(models.Model):
@@ -75,6 +82,18 @@ class Answer(models.Model):
         null=False,
         blank=False
     )
+    date_created = models.DateTimeField(
+        'Date Submitted',
+        auto_now_add=True,
+        null=False,
+        blank=False,
+    )
+    date_modified = models.DateTimeField(
+        'Date Modified',
+        auto_now=True,
+        null=False,
+        blank=False,
+    )
 
     def __str__(self):
-        return f"{self.participant.first_name} {self.participant.last_name} ({self.participant.pk}) -> {self.question.question_text} >> \"{ self.answer[:25] + '...' if len(self.answer) >= 25 else self.answer }\""
+        return f"{self.participant.first_name} {self.participant.last_name} ({self.participant.pk}) -> {self.question.question_text[:25]} [{self.question.pk}] >> \"{ self.answer[:15] + '...' if len(self.answer) >= 25 else self.answer }\""
