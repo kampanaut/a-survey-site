@@ -111,5 +111,6 @@ media/
 *.pid
 # django migrations 
 **/migrations/**
+!/poll_rear/migrations/*.py
 !**/migrations
 !**/migrations/__init__.py
