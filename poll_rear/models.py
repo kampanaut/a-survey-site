@@ -61,7 +61,8 @@ class Question(models.Model):
     sort = models.IntegerField(blank=False, null=False)
 
     def __str__(self):
-        return f"{self.sort}. {self.question_text[:50] + '...' if len(self.question_text) > 50 else self.question_text } [{self.pk}]"
+        # return f"{self.sort}. {self.question_text[:50] + '...' if len(self.question_text) > 50 else self.question_text } [{self.pk}]"
+        return f"{self.sort}. {self.question_text[:50]}  [{self.pk}]"
 
 
 class Answer(models.Model):
@@ -96,4 +97,4 @@ class Answer(models.Model):
     )
 
     def __str__(self):
-        return f"{self.participant.first_name} {self.participant.last_name} ({self.participant.pk}) -> {self.question.question_text[:25]} [{self.question.pk}] >> \"{ self.answer[:15] + '...' if len(self.answer) >= 25 else self.answer }\""
+        return f"{self.participant.first_name} {self.participant.last_name} ({self.participant.pk}) -> {self.question.question_text[:25]} [{self.question.pk}] >> \"{ self.answer[:25] + '...' if len(self.answer) >= 25 else self.answer }\""
