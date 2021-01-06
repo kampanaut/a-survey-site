@@ -97,7 +97,7 @@ form ul.inline li {
     margin-bottom: 0;
     margin-left: 170px;
     color: var(--primary-color-l);
-    filter: brightness(2.6);
+    filter: brightness(3.3);
 }
 
 .aligned ul label {
