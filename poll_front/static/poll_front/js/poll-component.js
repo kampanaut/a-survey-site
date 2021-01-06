@@ -54,7 +54,7 @@ const initiate_survey = (questions_json = JSON) => {
 	//A function for submitting answers
 	const submit_poll = (question_index) => {
 		const data = $('form#qualit-answer').serialize();
-		answer = data.split('=')[1];
+		answer = decodeURIComponent(data.split('=')[1]);
 		ask_w_answ_arr[question_index] = {
 			text: questions_json[question_index].text,
 			sort: questions_json[question_index].sort,
