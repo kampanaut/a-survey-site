@@ -62,7 +62,7 @@ class Question(models.Model):
 
     def __str__(self):
         # return f"{self.sort}. {self.question_text[:50] + '...' if len(self.question_text) > 50 else self.question_text } [{self.pk}]"
-        return f"{self.sort}. {self.question_text[:50]}  [{self.pk}]"
+        return f"{self.sort}. {self.question_text}  [{self.pk}]"
 
 
 class Answer(models.Model):
