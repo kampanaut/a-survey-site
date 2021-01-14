@@ -10,13 +10,13 @@ class Participant(models.Model):
         MALE = 'M', 'MALE'
         FEMALE = 'F', 'FEMALE'
     first_name = models.CharField(
-        'First Name',
+        'First Name & Middle Name',
         max_length=70,
         null=False,
         blank=False,
     )
     last_name = models.CharField(
-        'Last Name',
+        'Family Name',
         max_length=70,
         null=False,
         blank=False,

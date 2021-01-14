@@ -4,7 +4,7 @@ from poll_rear.models import Participant
 
 class UserForm(forms.ModelForm):
     first_name = forms.CharField(max_length=100, widget=forms.TextInput(attrs={
-        'placeholder': 'Enter preffered First Name',
+        'placeholder': 'Preffered First Name & Middle Name',
         'class': 'user-form-input'
     }))
     last_name = forms.CharField(max_length=100, widget=forms.TextInput(attrs={
