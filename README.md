@@ -1,3 +1,3 @@
 # the-survey-heroku
 
-Just some questionnaire shits for school shits
+A polling website for gathering answers for participants for a research during my senior year high school research project.
